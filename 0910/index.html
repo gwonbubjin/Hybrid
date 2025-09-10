@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>자기소개 페이지</title>
+  <meta name="description" content="법진아의 반응형 소개 페이지" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./assets/css/style.css" />
+</head>
+<body>
+  <a class="skip" href="#main">본문 바로가기</a>
+  <header class="site-header">
+    <div class="container nav-grid">
+      <a class="brand" href="index.html">Gwonbubjin</a>
+      <button class="nav-toggle" aria-expanded="false" aria-controls="nav" aria-label="메뉴 열기">☰</button>
+      <nav id="nav" class="site-nav" aria-label="주요">
+        <a href="index.html" aria-current="page">소개</a>
+        <a href="timeline.html">성장기록</a>
+        <a href="certificates.html">자격증</a>
+        <a href="project.html">프로젝트</a>
+        <a href="https://gwonbubjin.github.io/">포트폴리오</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="container section-gap">
+    <section class="hero">
+      <div>
+        <h1>안녕하세요, <span class="accent">권법진</span>입니다 👋</h1>
+        <p id="intro-text">
+          동의과학대학교 인공지능컴퓨터과에서 공부하며, JSP/Java 기반 웹 프로젝트와 Android(Java) 앱
+          <strong>‘Pilly’</strong>를 포함한 여러 팀/개인 프로젝트를 진행 중입니다. 데이터베이스 모델링 및 분석석과 백엔드 개발에 관심이 많습니다.
+        </p>
+        <div class="hero-cta">
+          <a class="btn primary" href="project.html">프로젝트 보러가기</a>
+          <a class="btn outline" href="timeline.html">성장기록 보러가기</a>
+        </div>
+      </div>
+      <div>
+        <img src="assets/img/profile.jpg" alt="프로필 이미지" class="hero-img"/>
+      </div>
+    </section>
+
+    <section class="cards" aria-label="오디오와 비디오">
+      <article class="card">
+        <h2>자기소개 오디오</h2>
+        <p>저가 매우 좋아하는 노래입니다.</p>
+        <audio controls preload="none">
+          <source src="assets/media/profile.mp3" type="audio/mpeg" />
+          브라우저가 오디오 태그를 지원하지 않습니다.
+        </audio>
+      </article>
+      <article class="card">
+        <h2>소개 영상</h2>
+        <div class="video-wrap">
+          <video controls preload="metadata" playsinline>
+            <source src="assets/media/intro.mp4" type="video/mp4" />
+            브라우저가 비디오 태그를 지원하지 않습니다.
+          </video>
+        </div>
+      </article>
+    </section>
+
+    <section class="section-gap">
+      <div class="cards">
+        <article class="card">
+          <h2>관심 기술</h2>
+          <ul class="meta">
+            <li>JSP/Servlet, JSTL, Tomcat</li>
+            <li>MySQL / DB 모델링</li>
+            <li>Android(Java), Firebase Firestore</li>
+            <li>데이터 분석 및 웹 사이트 제작 </li>
+          </ul>
+        </article>
+        <article class="card">
+          <h2>바로가기</h2>
+          <ul class="meta">
+            <li><a href="project.html">프로젝트</a> — 진행한 작업 모음</li>
+            <li><a href="timeline.html">성장기록</a> — 학습/연구 정리</li>
+            <li><a href="certificates.html">포트폴리오</a> — 외부 포트폴리오 링크</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <small>© <span id="year"></span> 권법진. All rights reserved.</small>
+    </div>
+  </footer>
+  
+  <script src="./assets/js/main.js"></script>
+</body>
+</html>

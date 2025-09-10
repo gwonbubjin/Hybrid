@@ -1,0 +1,38 @@
+/* 섹션 타이틀 */
+.cert-section { margin-top: 1.4rem; }
+.section-title { margin: 0 0 .6rem; }
+
+/* 그리드 */
+.cert-grid{
+  display:grid;
+  grid-template-columns: repeat(3, minmax(0,1fr));
+  gap:1rem;
+}
+@media (max-width:1080px){ .cert-grid{ grid-template-columns:repeat(2, minmax(0,1fr)); } }
+@media (max-width:680px){  .cert-grid{ grid-template-columns:1fr; } }
+
+/* 카드 공통 */
+.cert-card{
+  background: var(--panel);
+  border:1px solid #1c1f27;
+  border-radius:16px;
+  padding:1rem;
+  box-shadow:0 12px 28px rgba(0,0,0,.25);
+  display:flex; flex-direction:column; gap:.6rem;
+  transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+}
+.cert-card:hover{ transform:translateY(-4px); box-shadow:0 16px 36px rgba(0,0,0,.35); border-color:#273048; }
+.cert-head{ display:flex; align-items:center; justify-content:space-between; gap:.6rem; }
+.cert-title{ margin:0; font-size:1.05rem; }
+.cert-desc{ margin:.1rem 0 .2rem; color:var(--text); opacity:.95; }
+.cert-meta{ margin:0; padding-left:1.1rem; color:var(--muted); }
+.cert-meta li{ margin:.15rem 0; }
+
+/* 배지 */
+.badge{ display:inline-block; padding:.28rem .6rem; border-radius:999px; font-weight:700; font-size:.85rem; }
+.badge-earned{   background:rgba(110,231,183,.18); color:#b7f5df; border:1px solid #1d5a4c; }
+.badge-progress{ background:rgba(96,165,250,.18);  color:#9ac5ff; border:1px solid #2a4872; }
+
+/* 진행 바 */
+.progress{ height:10px; background:#0c0f16; border:1px solid #1c1f27; border-radius:999px; overflow:hidden; }
+.progress > span{ display:block; height:100%; background:linear-gradient(90deg, var(--primary), var(--accent)); }
