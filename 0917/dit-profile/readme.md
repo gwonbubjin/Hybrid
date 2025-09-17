@@ -84,7 +84,7 @@
 ## 📧 문의
 
 * 동의과학대학교 컴퓨터소프트웨어과
-* 대표 이메일: [info@dit.ac.kr](mailto:info@dit.ac.kr)
+* 대표 이메일: [gwonbubjin@gmail.com](mailto:info@dit.ac.kr)
 * 교수 개별 이메일: 소스코드 내 `emailByProf` 객체 참조
 
 ---
