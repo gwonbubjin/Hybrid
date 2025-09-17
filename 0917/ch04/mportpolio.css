@@ -1,0 +1,579 @@
+﻿/* 📱 모바일 앱 스타일 포트폴리오 - 흰색/검은색/우드 조합 */
+@import url('https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@300;400;500;600;700;800&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary-white: #ffffff;
+    --secondary-white: #f8f9fa;
+    --tertiary-white: #e9ecef;
+    --primary-black: #1a1a1a;
+    --secondary-black: #2d2d2d;
+    --tertiary-black: #404040;
+    --wood-primary: #8b4513;
+    --wood-secondary: #a0522d;
+    --wood-light: #d2b48c;
+    --wood-accent: #cd853f;
+    --shadow-soft: 0 2px 20px rgba(0, 0, 0, 0.08);
+    --shadow-medium: 0 4px 30px rgba(0, 0, 0, 0.12);
+    --shadow-strong: 0 8px 40px rgba(0, 0, 0, 0.15);
+    --border-radius: 16px;
+    --border-radius-small: 8px;
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+body {
+    font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, var(--secondary-white) 0%, var(--tertiary-white) 100%);
+    min-height: 100vh;
+    color: var(--primary-black);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+/* 🎯 헤더 - 모바일 앱 스타일 */
+header {
+    background: var(--primary-white);
+    box-shadow: var(--shadow-soft);
+    text-align: center;
+    padding: 20px 16px;
+    margin: 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    border-bottom: 1px solid var(--tertiary-white);
+}
+
+h1 {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--primary-black);
+    letter-spacing: -0.5px;
+    margin: 0;
+    position: relative;
+}
+
+h1::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 3px;
+    background: var(--wood-primary);
+    border-radius: 2px;
+}
+
+/* 🧭 네비게이션 - 모바일 탭바 스타일 */
+nav {
+    background: var(--primary-white);
+    padding: 8px 0;
+    border-bottom: 1px solid var(--tertiary-white);
+    position: sticky;
+    top: 80px;
+    z-index: 999;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+nav span {
+    flex: 1;
+    margin: 0;
+    text-align: center;
+}
+
+nav a {
+    display: block;
+    padding: 8px 4px;
+    background: transparent;
+    color: var(--tertiary-black);
+    text-decoration: none;
+    border-radius: var(--border-radius-small);
+    font-weight: 500;
+    font-size: 12px;
+    transition: var(--transition);
+    text-align: center;
+    position: relative;
+    border: 2px solid transparent;
+    white-space: nowrap;
+    width: 100%;
+}
+
+nav a:hover, nav a:active {
+    background: var(--secondary-white);
+    color: var(--primary-black);
+    transform: translateY(-1px);
+}
+
+nav a:focus {
+    outline: none;
+    border-color: var(--wood-primary);
+    background: var(--secondary-white);
+}
+
+/* 📱 메인 컨텐츠 - 모바일 카드 레이아웃 */
+.content {
+    max-width: 100%;
+    margin: 0;
+    padding: 16px;
+    display: block;
+}
+
+/* 📄 섹션 - 모바일 카드 */
+section {
+    background: var(--primary-white);
+    border-radius: var(--border-radius);
+    padding: 24px 20px;
+    margin-bottom: 16px;
+    box-shadow: var(--shadow-soft);
+    border: 1px solid var(--tertiary-white);
+    position: relative;
+    transition: var(--transition);
+}
+
+section:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-medium);
+}
+
+h3 {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--primary-black);
+    margin-bottom: 20px;
+    text-align: left;
+    position: relative;
+    padding-left: 16px;
+}
+
+h3::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 4px;
+    height: 20px;
+    background: var(--wood-primary);
+    border-radius: 2px;
+}
+
+/* 🖼️ 프로필 사진 - 모바일 프로필 스타일 */
+#stu-pic {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    display: block;
+    margin: 20px auto;
+    object-fit: cover;
+    border: 4px solid var(--primary-white);
+    box-shadow: var(--shadow-medium);
+    transition: var(--transition);
+}
+
+#stu-pic:hover {
+    transform: scale(1.05);
+    box-shadow: var(--shadow-strong);
+}
+
+/* 📝 자기소개 텍스트 - 모바일 타이포그래피 */
+.section1 p {
+    font-size: 16px;
+    line-height: 1.7;
+    text-align: left;
+    color: var(--secondary-black);
+    background: var(--secondary-white);
+    padding: 20px;
+    border-radius: var(--border-radius-small);
+    border-left: 4px solid var(--wood-accent);
+    margin: 16px 0;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+/* 📋 리스트 - 모바일 리스트 스타일 */
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+li {
+    background: var(--secondary-white);
+    margin: 8px 0;
+    padding: 12px 20px;
+    border-radius: var(--border-radius-small);
+    border-left: 3px solid var(--wood-light);
+    transition: var(--transition);
+    position: relative;
+    color: var(--secondary-black);
+    font-weight: 400;
+    font-size: 15px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+li::before {
+    content: '•';
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--wood-primary);
+    font-size: 18px;
+    font-weight: bold;
+}
+
+li:hover {
+    background: var(--tertiary-white);
+    transform: translateX(4px);
+    border-left-color: var(--wood-primary);
+}
+
+/* 🎨 사이드바 - 모바일 위젯 */
+aside {
+    background: var(--primary-white);
+    border-radius: var(--border-radius);
+    padding: 20px;
+    text-align: center;
+    box-shadow: var(--shadow-soft);
+    margin-bottom: 16px;
+    border: 1px solid var(--tertiary-white);
+    position: sticky;
+    top: 140px;
+}
+
+/* 🔗 포털 로고 - 모바일 앱 아이콘 스타일 */
+.portal {
+    width: 60px;
+    height: 60px;
+    border-radius: 16px;
+    margin: 8px;
+    box-shadow: var(--shadow-soft);
+    transition: var(--transition);
+    object-fit: cover;
+    border: 2px solid var(--tertiary-white);
+    display: inline-block;
+    background: var(--secondary-white);
+}
+
+.portal:hover, .portal:active {
+    transform: scale(1.1);
+    box-shadow: var(--shadow-medium);
+    border-color: var(--wood-accent);
+}
+
+/* 🖼️ 세미나 사진 - 모바일 갤러리 */
+.semi-pic { 
+    width: 80px; 
+    height: 60px; 
+    border-radius: var(--border-radius-small);
+    object-fit: cover;
+    margin: 6px;
+    box-shadow: var(--shadow-soft);
+    transition: var(--transition);
+    border: 2px solid var(--tertiary-white);
+}
+
+#pic-container { 
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+    margin: 20px 0;
+    padding: 20px;
+    background: var(--secondary-white);
+    border-radius: var(--border-radius);
+    border: 1px solid var(--tertiary-white);
+}
+
+.semi-pic:hover {
+    transform: scale(1.05);
+    box-shadow: var(--shadow-medium);
+    border-color: var(--wood-accent);
+}
+
+/* 🎬 동영상 - 모바일 비디오 플레이어 */
+video {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-medium);
+    margin: 20px 0;
+    display: block;
+    background: var(--primary-black);
+    border: 1px solid var(--tertiary-white);
+}
+
+video:hover {
+    box-shadow: var(--shadow-strong);
+}
+
+/* 🦶 푸터 - 모바일 앱 푸터 */
+footer {
+    background: var(--primary-white);
+    text-align: center;
+    padding: 20px 16px;
+    margin: 0;
+    border-top: 1px solid var(--tertiary-white);
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
+}
+
+h2 {
+    color: var(--tertiary-black);
+    font-size: 14px;
+    font-weight: 400;
+}
+
+/* 📱 태블릿 스타일 (768px 이상) */
+@media (min-width: 768px) {
+    .content {
+        display: grid;
+        grid-template-columns: 1fr 280px;
+        gap: 20px;
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+    
+    section {
+        padding: 32px 28px;
+        margin-bottom: 20px;
+    }
+    
+    aside {
+        position: sticky;
+        top: 100px;
+        height: fit-content;
+        margin-bottom: 0;
+    }
+    
+    #stu-pic {
+        width: 150px;
+        height: 150px;
+    }
+    
+    .portal {
+        width: 70px;
+        height: 70px;
+        margin: 10px;
+    }
+    
+    .semi-pic {
+        width: 100px;
+        height: 75px;
+    }
+    
+    video {
+        max-width: 500px;
+    }
+    
+    nav span {
+        width: auto;
+        max-width: none;
+        margin: 0 8px;
+    }
+    
+    nav a {
+        padding: 12px 16px;
+        font-size: 15px;
+    }
+}
+
+/* 💻 데스크톱 스타일 (1024px 이상) */
+@media (min-width: 1024px) {
+    .content {
+        grid-template-columns: 1fr 320px;
+        gap: 24px;
+        max-width: 1200px;
+    }
+    
+    section {
+        padding: 40px 36px;
+    }
+    
+    aside {
+        padding: 28px 24px;
+    }
+    
+    #stu-pic {
+        width: 180px;
+        height: 180px;
+    }
+    
+    .portal {
+        width: 80px;
+        height: 80px;
+        margin: 12px;
+    }
+    
+    .semi-pic {
+        width: 120px;
+        height: 90px;
+    }
+    
+    video {
+        max-width: 600px;
+    }
+    
+    h1 {
+        font-size: 32px;
+    }
+    
+    h3 {
+        font-size: 24px;
+    }
+}
+
+/* 🎯 터치 디바이스 최적화 */
+@media (hover: none) and (pointer: coarse) {
+    nav a:hover, .portal:hover, .semi-pic:hover, video:hover, #stu-pic:hover, li:hover {
+        transform: none;
+    }
+    
+    nav a:active, .portal:active {
+        transform: scale(0.95);
+    }
+    
+    li:active {
+        background: var(--tertiary-white);
+    }
+}
+
+/* 🌟 스크롤바 - 미니멀 */
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--tertiary-white);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--wood-primary);
+    border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--wood-secondary);
+}
+
+/* 🎨 포커스 스타일 */
+*:focus {
+    outline: 2px solid var(--wood-primary);
+    outline-offset: 2px;
+}
+
+/* 📱 모바일 앱 환경 최적화 */
+@media (display-mode: standalone) {
+    body {
+        padding-top: env(safe-area-inset-top);
+        padding-bottom: env(safe-area-inset-bottom);
+        padding-left: env(safe-area-inset-left);
+        padding-right: env(safe-area-inset-right);
+    }
+    
+    header {
+        padding-top: calc(20px + env(safe-area-inset-top));
+    }
+    
+    nav {
+        top: calc(80px + env(safe-area-inset-top));
+    }
+}
+
+/* 🎭 로딩 상태 */
+.loading {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+/* ✨ 특별 효과 - 우드 액센트 */
+.wood-accent {
+    color: var(--wood-primary);
+    font-weight: 600;
+}
+
+.wood-border {
+    border-color: var(--wood-primary) !important;
+}
+
+.wood-bg {
+    background: var(--wood-primary) !important;
+    color: var(--primary-white) !important;
+}
+
+/* 🎪 호버 효과 강화 */
+section:hover, aside:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-strong);
+}
+
+/* 📐 그리드 시스템 */
+.grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.grid-3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+}
+
+/* 🎨 색상 유틸리티 */
+.text-wood { color: var(--wood-primary); }
+.text-black { color: var(--primary-black); }
+.text-gray { color: var(--tertiary-black); }
+.bg-wood { background: var(--wood-primary); }
+.bg-white { background: var(--primary-white); }
+.bg-gray { background: var(--secondary-white); }
+
+/* 📱 모바일 퍼스트 애니메이션 */
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+section, aside {
+    animation: slideInUp 0.4s ease-out;
+}
+
+/* 🎯 접근성 개선 */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* 🌙 다크모드 지원 */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --primary-white: #1a1a1a;
+        --secondary-white: #2d2d2d;
+        --tertiary-white: #404040;
+        --primary-black: #ffffff;
+        --secondary-black: #e9ecef;
+        --tertiary-black: #cbd5e0;
+    }
+    
+    body {
+        background: linear-gradient(135deg, var(--secondary-white) 0%, var(--tertiary-white) 100%);
+    }
+}
