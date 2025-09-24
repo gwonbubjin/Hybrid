@@ -1,1 +1,28 @@
+name: Build single-file dashboard
+
+on:
+  workflow_dispatch:   # 👉 Run workflow 버튼 활성화
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Create dist folder
+        run: mkdir -p dist
+
+      - name: Copy template
+        run: cp index.template.html dist/index.html
+
+      - name: Deploy to gh-pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: dist
 
