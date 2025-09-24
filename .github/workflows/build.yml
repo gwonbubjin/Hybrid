@@ -16,8 +16,8 @@ jobs:
       - name: Create dist folder
         run: mkdir -p dist
 
-      - name: Copy template
-        run: cp index.template.html dist/index.html
+      - name: Copy template (from 0924 folder)
+        run: cp 0924/index.template.html dist/index.html
 
       - name: Deploy to gh-pages
         uses: peaceiris/actions-gh-pages@v3
