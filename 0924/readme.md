@@ -18,12 +18,6 @@
 | -------------------------------------- | -------------------------------------------- |
 | ![Modal](assets/screenshots/modal.png) | ![Controls](assets/screenshots/controls.png) |
 
-**스크린샷 찍는 팁**
-
-1. 브라우저 최대화 → `Ctrl`+`Shift`+`S`(또는 `Cmd`+`Shift`+`4`)로 영역 캡처.
-2. `assets/screenshots/` 폴더 생성 후 `home.png`, `region.png`, `modal.png`, `controls.png` 등 저장.
-3. README의 이미지 경로와 파일명을 일치시킵니다.
-
 ---
 
 ## 핵심 기능 (Features)
