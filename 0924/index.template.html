@@ -176,12 +176,23 @@
 </div></div>
 
 <script>
-const SERVICE_KEY = "371a6668f62879ee13679edba25020f5a2963b3fb7f17c551095b752e3cb2920";
+/* =========================
+   🔒 브라우저에서는 API 키를 쓰지 않음 (스냅샷 SEED만 사용)
+   ========================= */
 let currentItems = [];
 let currentSido = "";
 let chartDetail = null;
 let screenHistory = [];
 
+/* SEED(JSON 스냅샷)를 안전하게 읽는 헬퍼 */
+function getSeed(){
+  const tag = document.getElementById("SEED_DATA");
+  if(!tag) return null;
+  try { return JSON.parse(tag.textContent); }
+  catch(e){ return null; }
+}
+
+/* 내비게이션 */
 function goHome(){
   document.getElementById("homeScreen").style.display="block";
   document.getElementById("dataScreen").style.display="none";
@@ -197,8 +208,9 @@ function goBack(){
   }
 }
 
+/* 등급 표시 */
 function gradeClass(grade){
-  switch(grade){
+  switch(String(grade)){
     case "1": return {cls:"good", text:"좋음 ✅", bg:"good-bg"};
     case "2": return {cls:"normal", text:"보통 😐", bg:"normal-bg"};
     case "3": return {cls:"bad", text:"나쁨 ⚠️", bg:"bad-bg"};
@@ -207,12 +219,17 @@ function gradeClass(grade){
   }
 }
 
+/* 리스트 렌더 */
 function renderItems(items, sido){
   const info = document.getElementById("info");
-  if(items.length===0){ info.innerHTML="<p>검색 결과가 없습니다.</p>"; return; }
+  if(!items || items.length===0){ info.innerHTML="<p>검색 결과가 없습니다.</p>"; return; }
 
-  let sorted = [...items].sort((a,b)=>a.pm10Value-b.pm10Value);
-  let best = sorted[0], worst = sorted[sorted.length-1];
+  const toNum = v => Number(v ?? NaN);
+  let sortable = items.filter(x => !isNaN(toNum(x.pm10Value)));
+  let sorted = sortable.sort((a,b)=>toNum(a.pm10Value)-toNum(b.pm10Value));
+  let best = sorted[0] || {stationName:"-", pm10Value:"-", pm25Value:"-"};
+  let worst = sorted[sorted.length-1] || {stationName:"-", pm10Value:"-", pm25Value:"-"};
+
   document.getElementById("summary").innerHTML = `
     <div class="summary-card">
       <h3>✅ 가장 공기 좋은 곳</h3>
@@ -227,9 +244,10 @@ function renderItems(items, sido){
   info.innerHTML = `<h2>${sido} 대기질 (${items.length}개 측정소)</h2>`+
     items.map(it=>{
       const g=gradeClass(it.khaiGrade);
-      return `<div class="card ${g.bg}" onclick="openModal('${it.stationName}')">
+      const safeName = String(it.stationName || "").replace(/'/g,"&#39;");
+      return `<div class="card ${g.bg}" onclick="openModal('${safeName}')">
         <div class="title">${it.stationName}</div>
-        <div class="muted">${it.dataTime}</div>
+        <div class="muted">${it.dataTime || ""}</div>
         <span class="chip ${g.cls}">${g.text}</span>
         <div>PM10: ${it.pm10Value??"-"}</div>
         <div>PM2.5: ${it.pm25Value??"-"}</div>
@@ -238,41 +256,44 @@ function renderItems(items, sido){
     }).join("");
 }
 
+/* 데이터 로드: SEED만 사용 */
 async function loadData(sido){
+  const SEED = getSeed();
   currentSido=sido;
   document.getElementById("homeScreen").style.display="none";
   document.getElementById("dataScreen").style.display="block";
   screenHistory.push(sido);
 
-  const url=`https://apis.data.go.kr/B552584/ArpltnInforInqireSvc/getCtprvnRltmMesureDnsty?serviceKey=${SERVICE_KEY}&returnType=json&sidoName=${encodeURIComponent(sido)}&numOfRows=100&pageNo=1&ver=1.0`;
   try{
-    const res=await fetch(url);
-    const json=await res.json();
-    currentItems=json.response.body.items;
+    if(!SEED || !SEED.data || !SEED.data[sido]) throw new Error("no baked data");
+    currentItems = SEED.data[sido].response?.body?.items || [];
     renderItems(currentItems,sido);
-    document.getElementById("lastUpdate").innerText="마지막 업데이트: "+new Date().toLocaleTimeString();
-  }catch(err){document.getElementById("info").innerHTML=`<p>데이터 오류 (${err})</p>`;}
+    document.getElementById("lastUpdate").innerText="마지막 업데이트: "+(SEED.updatedAt || "");
+  }catch(err){
+    document.getElementById("info").innerHTML=`<p>데이터 없음(스냅샷 미주입). Actions 빌드 후 다시 확인하세요.</p>`;
+  }
 }
 
-// 검색
+/* 검색 */
 document.getElementById("searchBox").addEventListener("input",e=>{
   const k=e.target.value.trim();
   if(k===""){renderItems(currentItems,currentSido);return;}
-  const f=currentItems.filter(it=>it.stationName.includes(k));
+  const f=currentItems.filter(it=>(it.stationName||"").includes(k));
   renderItems(f,"검색 결과");
 });
 
-// 정렬
+/* 정렬 */
 document.getElementById("sortSelect").addEventListener("change",e=>{
   let v=e.target.value;
   let sorted=[...currentItems];
-  if(v==="pm10") sorted.sort((a,b)=>b.pm10Value-a.pm10Value);
-  if(v==="pm25") sorted.sort((a,b)=>b.pm25Value-a.pm25Value);
-  if(v==="o3") sorted.sort((a,b)=>b.o3Value-a.o3Value);
+  const asNum = (x)=>Number(x??NaN);
+  if(v==="pm10") sorted.sort((a,b)=>asNum(b.pm10Value)-asNum(a.pm10Value));
+  if(v==="pm25") sorted.sort((a,b)=>asNum(b.pm25Value)-asNum(a.pm25Value));
+  if(v==="o3")   sorted.sort((a,b)=>asNum(b.o3Value)-asNum(a.o3Value));
   renderItems(sorted,currentSido);
 });
 
-// 상세 모달
+/* 상세 모달 */
 function openModal(name){
   const it=currentItems.find(x=>x.stationName===name);
   if(!it) return;
@@ -280,20 +301,24 @@ function openModal(name){
 
   document.getElementById("modalBody").innerHTML=`
     <h3>${it.stationName}</h3>
-    <p>${it.dataTime}</p>
+    <p>${it.dataTime || ""}</p>
     <p>등급: <span class="${g.cls}">${g.text}</span></p>
     <canvas id="detailChart" width="400" height="300"></canvas>
   `;
   document.getElementById("modal").style.display="flex";
 
   if(chartDetail) chartDetail.destroy();
+  const vals = [
+    Number(it.pm10Value)||0, Number(it.pm25Value)||0, Number(it.o3Value)||0,
+    Number(it.coValue)||0, Number(it.so2Value)||0, Number(it.no2Value)||0
+  ];
   chartDetail = new Chart(document.getElementById("detailChart"), {
     type:'bar',
     data:{
       labels:["PM10","PM2.5","오존(O₃)","CO","SO₂","NO₂"],
       datasets:[{ 
         label:"측정값",
-        data:[it.pm10Value,it.pm25Value,it.o3Value,it.coValue,it.so2Value,it.no2Value],
+        data: vals,
         backgroundColor:["#3b82f6","#22c55e","#facc15","#f97316","#a855f7","#ef4444"]
       }]
     },
@@ -303,8 +328,8 @@ function openModal(name){
 document.getElementById("closeModal").onclick=()=>{document.getElementById("modal").style.display="none";};
 document.getElementById("modal").onclick=e=>{if(e.target.id==="modal") document.getElementById("modal").style.display="none";};
 
-/* 자동 새로고침 */
-setInterval(()=>{ if(currentSido) loadData(currentSido); }, 300000);
+/* 자동 새로고침 (스냅샷 모드에선 비활성 권장) */
+// setInterval(()=>{ if(currentSido) loadData(currentSido); }, 300000);
 
 /* 홈 화면: 오늘 날짜 표시 */
 function updateDateTime(){
@@ -315,16 +340,17 @@ function updateDateTime(){
 updateDateTime();
 setInterval(updateDateTime, 60000);
 
-/* 전국 요약 (서울 데이터 활용) */
+/* 전국 요약 (서울) - SEED 사용 */
 async function loadNationSummary(){
-  const url=`https://apis.data.go.kr/B552584/ArpltnInforInqireSvc/getCtprvnRltmMesureDnsty?serviceKey=${SERVICE_KEY}&returnType=json&sidoName=서울&numOfRows=100&pageNo=1&ver=1.0`;
+  const SEED = getSeed();
   try {
-    const res = await fetch(url);
-    const json = await res.json();
-    const items = json.response.body.items;
-    let avgPm10 = Math.round(items.reduce((s,it)=>s+Number(it.pm10Value||0),0)/items.length);
-    let grade = avgPm10<=30 ? "좋음 ✅" : avgPm10<=80 ? "보통 😐" : "나쁨 ⚠️";
-    document.getElementById("nationSummary").innerText = `오늘 서울 평균 PM10: ${avgPm10} (${grade})`;
+    const items = SEED?.data?.["서울"]?.response?.body?.items || [];
+    const avgPm10 = items.length
+      ? Math.round(items.reduce((s,it)=>s+Number(it.pm10Value||0),0)/items.length)
+      : NaN;
+    const grade = isNaN(avgPm10) ? "-" : (avgPm10<=30 ? "좋음 ✅" : avgPm10<=80 ? "보통 😐" : "나쁨 ⚠️");
+    document.getElementById("nationSummary").innerText =
+      isNaN(avgPm10) ? "전국 데이터를 불러올 수 없습니다." : `오늘 서울 평균 PM10: ${avgPm10} (${grade})`;
   } catch {
     document.getElementById("nationSummary").innerText = "전국 데이터를 불러올 수 없습니다.";
   }
@@ -334,8 +360,8 @@ loadNationSummary();
 /* 지역 클릭 */
 document.querySelectorAll(".region").forEach(el=>el.addEventListener("click",()=>loadData(el.textContent)));
 </script>
-  <!-- seed(스냅샷) 데이터가 여기에 주입됩니다 -->
+
+<!-- seed(스냅샷) 데이터가 여기에 주입됩니다 -->
 <script id="SEED_DATA" type="application/json">__SEED_JSON__</script>
 </body>
 </html>
-
