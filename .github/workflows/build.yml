@@ -1,10 +1,10 @@
 name: Build single-file dashboard
 
 on:
-  workflow_dispatch:   # 👉 수동 실행 (Run workflow 버튼 활성화)
+  workflow_dispatch:   # 👉 Actions 탭에서 Run workflow 버튼 생김
   push:
     branches:
-      - main           # 👉 main 브랜치에 push될 때도 실행
+      - main           # 👉 main 브랜치에 push될 때도 실행됨
 
 jobs:
   build:
