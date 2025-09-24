@@ -1,27 +1,68 @@
-name: Build single-file dashboard
+name: Build single-file dashboard (seed baked)
 
 on:
   workflow_dispatch:
   push:
-    branches:
-      - main
+    branches: [ main ]
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
 
     steps:
-      - name: Checkout repository
+      - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Ensure dist folder
-        run: mkdir -p dist
+      - name: Setup Node 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
 
-      - name: Copy template from 0924 folder to dist
-        run: cp 0924/index.template.html dist/index.html
+      - name: Fetch air data and bake into template (0924/index.template.html)
+        env:
+          AIR_SERVICE_KEY: ${{ secrets.AIR_SERVICE_KEY }}
+        run: |
+          node --input-type=module <<'NODE'
+          const fs = await import('fs');
 
-      - name: Show dist contents (debug)
-        run: ls -la dist && echo "==== preview ====" && sed -n '1,10p' dist/index.html || true
+          const key = process.env.AIR_SERVICE_KEY;
+          if (!key) throw new Error("AIR_SERVICE_KEY missing (Settings → Secrets and variables → Actions)");
+
+          const sidos = ["서울","부산","대구","인천","광주","대전","울산","세종","경기","강원","충북","충남","전북","전남","경북","경남","제주"];
+          const enc = encodeURIComponent;
+
+          async function fetchOne(sido){
+            const url = `https://apis.data.go.kr/B552584/ArpltnInforInqireSvc/getCtprvnRltmMesureDnsty?serviceKey=${enc(key)}&returnType=json&sidoName=${enc(sido)}&numOfRows=100&pageNo=1&ver=1.0`;
+            const r = await fetch(url, { headers:{Accept:"application/json"} });
+            if (!r.ok) throw new Error(`HTTP ${r.status} for ${sido}`);
+            const j = await r.json();
+            return j;
+          }
+
+          const out = { updatedAt: new Date().toISOString(), data: {} };
+          for (const sido of sidos){
+            try{
+              out.data[sido] = await fetchOne(sido);
+              console.log("OK", sido);
+            }catch(e){
+              console.error("FAIL", sido, String(e));
+              out.data[sido] = { error:true, message:String(e) };
+            }
+          }
+
+          const tmpl = fs.readFileSync('0924/index.template.html', 'utf-8');
+          const seed = JSON.stringify(out);
+          if (!tmpl.includes('__SEED_JSON__')) {
+            throw new Error("템플릿에 __SEED_JSON__ 자리표시자가 없습니다.");
+          }
+          const html = tmpl.replace('__SEED_JSON__', seed);
+
+          fs.mkdirSync('dist', { recursive: true });
+          fs.writeFileSync('dist/index.html', html, 'utf-8');
+          console.log("Baked dist/index.html, length:", html.length);
+          NODE
 
       - name: Deploy to gh-pages
         uses: peaceiris/actions-gh-pages@v3
