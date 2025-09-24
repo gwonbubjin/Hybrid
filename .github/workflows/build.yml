@@ -9,15 +9,19 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Create dist folder
+      - name: Ensure dist folder
         run: mkdir -p dist
 
-      - name: Copy template (from 0924 folder)
+      - name: Copy template from 0924 folder to dist
         run: cp 0924/index.template.html dist/index.html
+
+      - name: Show dist contents (debug)
+        run: ls -la dist && echo "==== preview ====" && sed -n '1,10p' dist/index.html || true
 
       - name: Deploy to gh-pages
         uses: peaceiris/actions-gh-pages@v3
@@ -25,4 +29,6 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: gh-pages
           publish_dir: dist
-          force_orphan: true   # ✅ 브랜치 꼬임 방지
+          force_orphan: true
+          user_name: github-actions[bot]
+          user_email: github-actions[bot]@users.noreply.github.com
