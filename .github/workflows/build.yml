@@ -1,10 +1,10 @@
 name: Build single-file dashboard
 
 on:
-  workflow_dispatch:   # 👉 수동 실행 (Actions 탭에서 Run workflow 버튼)
+  workflow_dispatch:
   push:
     branches:
-      - main           # 👉 main 브랜치에 push될 때 실행
+      - main
 
 jobs:
   build:
@@ -25,3 +25,4 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: gh-pages
           publish_dir: dist
+          force_orphan: true   # ✅ 브랜치 꼬임 방지
