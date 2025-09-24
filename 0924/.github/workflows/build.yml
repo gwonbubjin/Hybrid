@@ -1,1 +1,68 @@
+name: Build single-file dashboard (seed baked)
+
+on:
+  workflow_dispatch:       # 수동 실행 버튼
+  schedule:
+    - cron: "0 * * * *"    # 매시간 정각 (원하면 간격 조정)
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write       # gh-pages 브랜치 푸시 권한
+
+    steps:
+      - name: Check out
+        uses: actions/checkout@v4
+
+      - name: Set up Node (Node 20 = fetch 내장)
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Fetch air data with secret and bake HTML
+        env:
+          AIR_SERVICE_KEY: ${{ secrets.AIR_SERVICE_KEY }}
+        run: |
+          node --input-type=module <<'NODE'
+          const fs = await import('fs');
+          const sidos = ["서울","부산","대구","인천","광주","대전","울산","세종","경기","강원","충북","충남","전북","전남","경북","경남","제주"];
+          const key = process.env.AIR_SERVICE_KEY;
+          if(!key){ throw new Error("AIR_SERVICE_KEY is missing"); }
+
+          const enc = encodeURIComponent;
+          async function fetchOne(sido){
+            const url = `https://apis.data.go.kr/B552584/ArpltnInforInqireSvc/getCtprvnRltmMesureDnsty?serviceKey=${enc(key)}&returnType=json&sidoName=${enc(sido)}&numOfRows=100&pageNo=1&ver=1.0`;
+            const r = await fetch(url, { headers:{Accept:"application/json"} });
+            if(!r.ok) throw new Error(\`HTTP \${r.status} (\${sido})\`);
+            return await r.json();
+          }
+
+          const out = { updatedAt: new Date().toISOString(), data: {} };
+          for(const sido of sidos){
+            try{
+              out.data[sido] = await fetchOne(sido);
+              console.log("OK", sido);
+            }catch(e){
+              console.error("FAIL", sido, String(e));
+              out.data[sido] = { error:true, message:String(e) };
+            }
+          }
+
+          // index.template.html의 __SEED_JSON__ 치환 → dist/index.html 생성
+          const tmpl = fs.readFileSync('index.template.html', 'utf-8');
+          const seedJson = JSON.stringify(out); // compact
+          const html = tmpl.replace('__SEED_JSON__', seedJson);
+
+          fs.mkdirSync('dist', { recursive: true });
+          fs.writeFileSync('dist/index.html', html, 'utf-8');
+          NODE
+
+      - name: Deploy to gh-pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: dist
+          force_orphan: true
 
