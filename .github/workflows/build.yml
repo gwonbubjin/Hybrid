@@ -1,10 +1,10 @@
 name: Build single-file dashboard
 
 on:
-  workflow_dispatch:   # 👉 Run workflow 버튼 활성화
+  workflow_dispatch:   # 👉 수동 실행 (Run workflow 버튼 활성화)
   push:
     branches:
-      - main
+      - main           # 👉 main 브랜치에 push될 때도 실행
 
 jobs:
   build:
@@ -25,4 +25,3 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: gh-pages
           publish_dir: dist
-
