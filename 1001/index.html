@@ -1,0 +1,485 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <title>HAKA Official Style</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Bootstrap 5 (CSS/JS) -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet" />
+  <!-- Leaflet (지도) -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <!-- Custom -->
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg navbar-glass fixed-top">
+  <div class="container">
+    <a class="navbar-brand d-flex align-items-center gap-2" href="#home">
+      <!-- HAKA 느낌 로고 (SVG) -->
+      <span class="logo-haka" aria-label="HAKA">
+        <svg viewBox="0 0 520 140" xmlns="http://www.w3.org/2000/svg" role="img">
+          <defs>
+            <linearGradient id="hakaGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#2EA28A"/>
+              <stop offset="100%" stop-color="#6CC3AD"/>
+            </linearGradient>
+          </defs>
+          <path d="M35 20 h30 v40 h60 v-40 h30 v100 h-30 v-40 h-60 v40 h-30 z" fill="url(#hakaGrad)"/>
+          <path d="M205 120 L255 20 L305 120 h-28 l-11 -24 h-52 l-11 24 h-28 z
+                   M238 72 h34 l-17 -36 z" fill="url(#hakaGrad)"/>
+          <path d="M330 20 h30 v42 l55 -42 h40 l-66 50 70 50 h-42 l-57 -40 v40 h-30 z" fill="url(#hakaGrad)"/>
+          <path d="M455 120 L505 20 L555 120 h-28 l-11 -24 h-52 l-11 24 h-28 z
+                   M488 72 h34 l-17 -36 z" transform="translate(-20,0)" fill="url(#hakaGrad)"/>
+        </svg>
+      </span>
+      <span class="brand-slogan d-none d-sm-inline">Trust Your Judgment</span>
+    </a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMain">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navMain">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+            <a class="nav-link" href="#haka-intro">하카소개</a>
+          </li>
+        <li class="nav-item"><a class="nav-link" href="#products">제품소개</a></li>
+        <li class="nav-item"><a class="nav-link" href="#stores">매장찾기</a></li>
+        <li class="nav-item"><a class="nav-link" href="#support">고객센터</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO (유튜브 + 소개) -->
+<header id="home" class="hero-section">
+  <div class="container position-relative">
+    <div class="row g-4 align-items-center">
+      <div class="col-12 col-lg-6">
+        <div class="ratio ratio-16x9 hero-video shadow-lg rounded-4">
+            <iframe
+              src="https://www.youtube.com/embed/M7lc1UVf-VE?rel=0&modestbranding=1&showinfo=0&controls=1&autoplay=0&mute=0"
+              title="YouTube API Demo"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerpolicy="strict-origin-when-cross-origin"
+              allowfullscreen
+              loading="lazy"
+              width="100%"
+              height="100%"
+              style="border-radius: 16px;"
+            ></iframe>
+          </div>
+      </div>
+      <div class="col-12 col-lg-6">
+        <h1 class="display-6 fw-bold mb-2 text-white">가장 가까운 하카를 만나보세요</h1>
+        <p class="lead text-white-50 mb-4">경험은 그대로, 방식은 새롭게. 하카는 당신의 일상을 더 특별하게 만듭니다.</p>
+        <div class="d-flex flex-wrap gap-2">
+          <a href="#products" class="btn btn-brand"><i class="bi bi-box-seam"></i> 제품 보러가기</a>
+          <a href="#stores" class="btn btn-outline-brand"><i class="bi bi-geo-alt"></i> 가까운 매장</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-bg"></div>
+  <a href="#products" class="scroll-cue"><i class="bi bi-chevron-double-down"></i></a>
+</header>
+ <!-- 1. 좋은 제품으로 만드는 일상의 변화 -->
+ <section id="haka-intro" class="hero hero-1">
+    <div class="overlay"></div>
+    <div class="content">
+      <h1>좋은 제품으로 만드는<br>일상의 변화</h1>
+      <p>
+        냄새 걱정도, 불편한 경험도 없는<br>
+        담배 연기 걷힌 쾌적한 삶<br>
+        삶에 긍정적인 변화를 더하기 위해서는<br>
+        하루 하루의 일상이 먼저 변해야 합니다.<br><br>
+
+        우리는 흡연자들과 그 곁의 모든 사람들의<br>
+        더 나은 삶을 고민합니다.<br>
+        좋은 기술과 제품으로 만드는<br>
+        사소하지만 극적인 일상의 변화.<br>
+        하카코리아가
+      </p>
+    </div>
+  </section>
+
+  <!-- 2. 조금이라도 덜 해롭게 -->
+  <section class="hero hero-2">
+    <div class="content">
+      <h1>조금이라도<br>덜 해롭게</h1>
+      <p>
+        하나 하나의 조급이 모여 만든 지금,<br>
+        하카는 전자담배 유해성을 끊임없이 연구하고<br>
+        그 결과를 투명하게 공개합니다.
+      </p>
+      <a href="#" class="link">유해성 검사 결과 바로가기 ></a>
+    </div>
+  </section>
+
+  <!-- 3. 우리의 경쟁력은 우리 -->
+  <section class="hero hero-3">
+    <div class="content">
+      <h1>우리의 경쟁력은 우리</h1>
+      <p>
+        하카코리아와 함께 할<br>
+        좋은 인재들을 기다립니다.
+      </p>
+      <a href="#" class="link">인재 채용 바로가기 ></a>
+    </div>
+  </section>
+
+  <!-- 4. 앞으로 나아갑니다 -->
+  <section class="hero hero-4">
+    <div class="content">
+      <h1>하카코리아는<br>계속해서 앞으로 나아갑니다</h1>
+    </div>
+  </section>
+<!-- 클래식 타임라인 스타일 히스토리 섹션 -->
+<section id="haka-history" class="history-wrap">
+  <div class="container">
+    <div class="history-title">HISTORY</div>
+    <div class="history-sub">대한민국을 넘어 세계로, 국내 전자담배 브랜드의 자존심 하카</div>
+    
+    <div class="timeline">
+      <!-- 2025 : 오른쪽 -->
+      <div class="ti right">
+        <div class="box">
+          <div class="card p-4">
+            <div class="year year-2025">2025</div>
+            <ul>
+              <li>궐련형 전자담배 <strong>'하카 R'</strong> 출시</li>
+              <li><strong>하카 시그니처 듀오팩</strong> 출시</li>
+              <li>궐련 스틱 &lt;로부스틱&gt; <strong>4종</strong> 출시</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      
+      <!-- 2024 : 왼쪽 -->
+      <div class="ti left">
+        <div class="box">
+          <div class="card p-4">
+            <div class="year year-2024">2024</div>
+            <ul>
+              <li>2024년도 중앙일보 포브스코리아 '최고 브랜드 대상' <strong>10년 연속</strong> 수상</li>
+              <li>2024 대한민국 글로벌 파워브랜드 대상 수상 (<strong>7회 연속</strong>)</li>
+              <li>국회 기획재정위원장 표창</li>
+              <li>궐련형 전자담배 '하카 H' 출시</li>
+              <li>일회용 전자담배 라인업 '하카 B' 출시</li>
+              <li>궐련형 전자담배 '하카 Q' 출시</li>
+              <li>하카시그니처 신규 컬러 출시 (7종)</li>
+              <li>하카시그니처 신규 액상 U 프레쉬 출시</li>
+              <li>하카 시그니처 신규 컬러 출시 (5종)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      
+      <!-- 2023 : 오른쪽 -->
+      <div class="ti right">
+        <div class="box">
+          <div class="card p-4">
+            <div class="year year-2023">2023</div>
+            <ul>
+              <li>중앙일보 포브스코리아 '최고 브랜드 대상' <strong>9년 연속</strong> 수상</li>
+              <li>대한민국 글로벌 파워브랜드 대상 수상 (<strong>5회 연속</strong>)</li>
+              <li>대한민국 글로벌 파워브랜드 대상 수상 (<strong>6회 연속</strong>)</li>
+              <li>'고객 신뢰도 1위 프리미엄 브랜드' <strong>3년 연속</strong> 선정</li>
+              <li>국회 <strong>정무위원장</strong> 표창 · <strong>문화체육관광위원장</strong> 표창</li>
+              <li>하카 시그니처 신규 컬러 출시 (7종)</li>
+              <li>화이트라벨 POD : 비비드 그린 / C 프레쉬 / 블랙 리프 / 오리지널 리프 출시</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      
+      <!-- 2022 : 왼쪽 -->
+      <div class="ti left">
+        <div class="box">
+          <div class="card p-4">
+            <div class="year year-2022">2022</div>
+            <ul>
+              <li>중앙일보 포브스코리아 '최고 브랜드 대상' <strong>8년 연속</strong> 수상</li>
+              <li>'고객 신뢰도 1위 프리미엄 브랜드' <strong>2년 연속</strong> 선정</li>
+              <li>대한민국 글로벌 파워브랜드 대상 수상 (제6·7·8회, <strong>2/3/4회 연속</strong>)</li>
+              <li>국회 행정안전위원장 표창</li>
+              <li>국회 기획재정위원장 · 산업통상자원중소벤처기업위원장 표창</li>
+              <li>국회 과학기술정보방송통신위원장 표창</li>
+              <li>화이트라벨 POD : <strong>브라운 프레소</strong> 출시</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      
+      <!-- 2021 : 오른쪽 -->
+      <div class="ti right">
+        <div class="box">
+          <div class="card p-4">
+            <div class="year year-2021">2021</div>
+            <ul>
+              <li>중앙일보 포브스코리아 '최고 브랜드 대상' <strong>7년 연속</strong> 수상</li>
+              <li>'고객 신뢰도 1위 프리미엄 브랜드' 선정</li>
+              <li>제5회 대한민국 글로벌 파워브랜드 대상 수상</li>
+              <li>국회 산업통상자원중소벤처기업위원장 표창 · 국회 기획재정위원장 표창</li>
+              <li>궐련형 <strong>Haka New Blade 2.0</strong> 출시</li>
+              <li>블랙라벨 POD : <strong>서든리프2</strong> (리뉴얼) 출시</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      
+      <!-- 2020 : 왼쪽 -->
+      <div class="ti left">
+        <div class="box">
+          <div class="card p-4">
+            <div class="year year-2020">2020</div>
+            <ul>
+              <li>중앙일보 포브스코리아 '최고 브랜드 대상' <strong>6년 연속</strong> 수상</li>
+              <li><strong>Haka New Blade 1.0</strong> 출시</li>
+              <li>하카 시그니처 <strong>C-Type</strong> 출시 (6종)</li>
+              <li>하카 시그니처 <strong>화이트라벨</strong> 라인 출시</li>
+              <li>화이트라벨 POD : 레비타 · 콜드 블루 · 썬라이즈 · 핑크 레이디 · 아이스프레소 · 프레쉬 믹스 · 알로 · 스윗 썸머 출시</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      
+      <!-- 2019 : 오른쪽 -->
+      <div class="ti right">
+        <div class="box">
+          <div class="card p-4">
+            <div class="year year-2019">2019</div>
+            <ul>
+              <li>중앙일보 포브스코리아 '최고 브랜드 대상' <strong>5년 연속</strong> 수상</li>
+              <li><strong>하카 시그니처</strong> 출시 · 시그니처 POD: 블랙라벨 출시</li>
+              <li>블랙라벨 POD : 글래시어 민트 · 서든 리프 · 이스턴 리프 · 아이스망고 · 아이스멜론 · 글레시어 G.민트 · 다크멘솔 · 핑크베리 · 골드리치</li>
+              <li>영국 버밍엄 <strong>VAPOR EXPO 2019</strong> 참가 · 한국 <strong>VAPE KOREA EXPO 2019</strong> 메인스폰서</li>
+              <li><strong>Haka New Blade</strong> KC 인증 완료</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      
+      <!-- 2018 : 왼쪽 -->
+      <div class="ti left">
+        <div class="box">
+          <div class="card p-4">
+            <div class="year year-2018">2018</div>
+            <ul>
+              <li>중앙일보 포브스코리아 '최고 브랜드 대상' <strong>4년 연속</strong> 수상</li>
+              <li><strong>하카 컴뱃</strong> 출시 · 신규 액상 론칭(벌티고/마켓프리즈/리스키)</li>
+              <li>중국 심천 <strong>IECIE E-CIG EXPO 2018</strong> 참가</li>
+              <li>하카 컴뱃 · 하카 시그니처 <strong>KC 인증 완료</strong></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      
+      <!-- 2017 : 오른쪽 -->
+      <div class="ti right">
+        <div class="box">
+          <div class="card p-4">
+            <div class="year year-2017">2017</div>
+            <ul>
+              <li>법인명 변경: <strong>주식회사 하카 코리아</strong> (2017.05)</li>
+              <li>중앙일보 포브스코리아 '최고 브랜드 대상' <strong>3년 연속</strong> 수상</li>
+              <li><strong>하카 S4 MIZER</strong> 출시 · <strong>하카 S4</strong> 출시 · <strong>하카 X5</strong> 출시 · 하카 크리스탈 출시</li>
+              <li>상하이 <strong>VAPE EXPO 2017</strong> 참가 – BEST BOOTH AWARD 수상</li>
+              <li>하카 X5 · 하카 크리스탈 <strong>KC 인증</strong></li>
+              <li>유럽 <strong>TPD</strong> 등록: HAKA X5 / CRYSTAL / GINX / (TPO) HAKA S4</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      
+      <!-- 2016 : 왼쪽 -->
+      <div class="ti left">
+        <div class="box">
+          <div class="card p-4">
+            <div class="year year-2016">2016</div>
+            <ul>
+              <li><strong>하카 아메리카</strong> 설립</li>
+              <li>중앙일보 포브스코리아 '최고 브랜드 대상' <strong>2년 연속</strong> 수상</li>
+              <li>제품안전의날 <strong>국가기술표준원장상</strong> 수상</li>
+              <li>MT80 · METIS 출시</li>
+              <li>신규 액상: 마마쿠 · 마마쿠 플러스 · 하카 플러스</li>
+              <li>세계 최초 <strong>미세 전류 시스템 전자담배 특허</strong> 등록</li>
+              <li>독일 VAPE FAIR / 미국 WORLD VAPOR EXPO / 프랑스 VAPE EXPO 참가</li>
+              <li>유럽 <strong>TPD HIGGS</strong> 등록 · 미국 <strong>FDA</strong> 하카 액상(크렌베리 외 9종) 등록 완료</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      
+      <!-- 2015 : 오른쪽 -->
+      <div class="ti right">
+        <div class="box">
+          <div class="card p-4">
+            <div class="year year-2015">2015</div>
+            <ul>
+              <li>중앙일보 포브스코리아 '최고 브랜드 대상' 수상</li>
+              <li><strong>하카 MINI</strong> 출시 · <strong>하카 S2</strong> 출시 · <strong>GINX 마이저</strong> 출시</li>
+              <li>독일 VAPE FAIR / 프랑스 VAPE EXPO 참가</li>
+              <li><strong>하카 힉스</strong> KC 인증 · <strong>하카 S2</strong> KC 인증</li>
+              <li>전자담배 <strong>특허 등록</strong> · 전자담배용 <strong>캡 특허 등록</strong></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+  
+<!-- 제품소개 -->
+<section id="products" class="section-pad bg-body">
+  <!-- 깃털 장식들 -->
+  <div class="feather-decoration feather-1"></div>
+  <div class="feather-decoration feather-2"></div>
+  <div class="feather-decoration feather-3"></div>
+  <div class="feather-decoration feather-4"></div>
+  
+  <div class="container">
+    <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-3">
+      <h2 class="fw-bold mb-0">제품소개</h2>
+    </div>
+
+    <div id="productsGrid" class="row g-3">
+      <!-- app.js가 data/products.json을 읽어 카드 생성 -->
+    </div>
+  </div>
+</section>
+
+<!-- 매장찾기 -->
+<section id="stores" class="section-pad">
+  <div class="container">
+    <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-3">
+      <h2 class="fw-bold mb-0">매장찾기</h2>
+      <div class="d-flex gap-2">
+        <select id="storeSido" class="form-select form-select-sm">
+          <option value="">전체</option>
+          <option>서울</option><option>부산</option><option>인천</option>
+          <option>대구</option><option>대전</option><option>광주</option><option>울산</option>
+        </select>
+        <button id="btnStoreFilter" class="btn btn-sm btn-brand"><i class="bi bi-funnel"></i> 적용</button>
+      </div>
+    </div>
+
+    <div class="row g-3">
+      <div class="col-12 col-lg-4">
+        <div class="card soft-card h-100">
+          <div class="list-group list-group-flush" id="storeList" style="max-height:60vh; overflow:auto;">
+            <!-- app.js가 data/branches.json을 읽어 리스트 생성 -->
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-lg-8">
+        <div class="card soft-card h-100">
+          <div class="card-body p-2">
+            <div id="storeMap" class="rounded-4" style="height:60vh;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 고객센터 -->
+<section id="support" class="section-pad bg-body">
+  <div class="container">
+    <h2 class="fw-bold mb-3">고객센터</h2>
+    <div class="row g-3">
+      <div class="col-12 col-lg-6">
+        <div class="card soft-card h-100">
+          <div class="card-body">
+            <h5 class="card-title">자주 묻는 질문</h5>
+            <div class="accordion" id="faqAcc">
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="f1h">
+                  <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#f1">
+                    보증 기간은 어떻게 되나요?
+                  </button>
+                </h2>
+                <div id="f1" class="accordion-collapse collapse show" data-bs-parent="#faqAcc">
+                  <div class="accordion-body text-secondary">본체 1년(소모품 제외). 결함 판정 시 무상 교체.</div>
+                </div>
+              </div>
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="f2h">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#f2">
+                    교환/환불 규정은?
+                  </button>
+                </h2>
+                <div id="f2" class="accordion-collapse collapse" data-bs-parent="#faqAcc">
+                  <div class="accordion-body text-secondary">구입 7일 이내 미개봉 시 교환/환불 가능.</div>
+                </div>
+              </div>
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="f3h">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#f3">
+                    미성년자 이용 안내
+                  </button>
+                </h2>
+                <div id="f3" class="accordion-collapse collapse" data-bs-parent="#faqAcc">
+                  <div class="accordion-body text-secondary">본 서비스는 만 19세 이상만 이용 가능합니다.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div><!-- /col -->
+
+      <div class="col-12 col-lg-6">
+        <div class="card soft-card h-100">
+          <div class="card-body">
+            <h5 class="card-title">문의하기</h5>
+            <form id="csForm" class="row g-2">
+              <div class="col-12 col-md-6">
+                <label class="form-label">이름</label>
+                <input class="form-control" name="name" required>
+              </div>
+              <div class="col-12 col-md-6">
+                <label class="form-label">이메일</label>
+                <input type="email" class="form-control" name="email" placeholder="you@example.com" required>
+              </div>
+              <div class="col-12">
+                <label class="form-label">내용</label>
+                <textarea class="form-control" name="message" rows="4" required></textarea>
+              </div>
+              <div class="col-12 d-grid">
+                <button class="btn btn-brand" type="submit"><i class="bi bi-send"></i> 제출</button>
+              </div>
+            </form>
+            <small class="text-muted d-block mt-2">데모: 제출 내용은 브라우저에만 저장됩니다.</small>
+          </div>
+        </div>
+      </div>
+    </div><!-- /row -->
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer-dark">
+  <div class="container py-4 text-center">
+    <div class="mb-2">
+      <a href="#home" class="text-decoration-none text-white-50 me-3">TOP</a>
+      <a href="#products" class="text-decoration-none text-white-50 me-3">제품소개</a>
+      <a href="#stores" class="text-decoration-none text-white-50 me-3">매장찾기</a>
+      <a href="#support" class="text-decoration-none text-white-50">고객센터</a>
+    </div>
+    <div class="text-white-50 small">© 2025 HAKA Style Demo. All rights reserved.</div>
+  </div>
+</footer>
+
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script type="module" src="./app.js"></script>
+</body>
+</html>
