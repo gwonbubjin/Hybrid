@@ -1,4 +1,3 @@
-<img width="1906" height="854" alt="image" src="https://github.com/user-attachments/assets/f93f000b-6eec-4a16-9dac-09a05ce9e99b" /><img width="1904" height="852" alt="image" src="https://github.com/user-attachments/assets/ce2763e1-ee8d-447b-91f4-6d7f3cf2bfd9" /># HAKA Official Style 🌿
 
 > **“Trust Your Judgment.”**
 > 대한민국 전자담배 브랜드의 감성과 인터랙션을 담은 **하카 스타일 데모** 웹사이트.
