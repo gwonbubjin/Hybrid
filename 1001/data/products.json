@@ -1,0 +1,45 @@
+[
+  {
+    "id": "p-001",
+    "name": "HAKA Device H",
+    "category": "디바이스",
+    "desc": "경량 바디와 안정적인 퍼포먼스의 프리미엄 디바이스.",
+    "image": "images/product1.jpg"
+  },
+  {
+    "id": "p-002",
+    "name": "HAKA Pods Mint",
+    "category": "카트리지",
+    "desc": "청량한 민트 풍미와 안정적인 연무.",
+    "image": "images/product2.jpg"
+  },
+  {
+    "id": "p-003",
+    "name": "Charging Cradle",
+    "category": "액세서리",
+    "desc": "고속 충전 지원 거치대.",
+    "image": "images/product3.jpg"
+  },
+  {
+    "id": "p-004",
+    "name": "HAKA Device Q",
+    "category": "디바이스",
+    "desc": "컴팩트한 사이즈의 휴대용 디바이스.",
+    "image": "images/product4.jpg"
+  },
+  {
+    "id": "p-005",
+    "name": "HAKA Pods Fresh",
+    "category": "카트리지",
+    "desc": "상쾌한 프레시 맛의 프리미엄 카트리지.",
+    "image": "images/product5.jpg"
+  },
+  {
+    "id": "p-006",
+    "name": "HAKA Device R",
+    "category": "디바이스",
+    "desc": "최신 기술이 적용된 프리미엄 디바이스.",
+    "image": "images/product6.jpg"
+  }
+]
+  
