@@ -407,3 +407,50 @@ a { text-decoration: none; color: inherit; }
 .video-section { animation: fadeInUp 0.6s ease-out 0.6s forwards; opacity: 0; }
 .social-section { animation: fadeInUp 0.6s ease-out 0.8s forwards; opacity: 0; }
 .info-card { animation: fadeInUp 0.6s ease-out 1.0s forwards; opacity: 0; }
+
+/* ★★★ [최종] 버튼 가로 배치 & 크기 통일 ★★★ */
+
+/* 1. 버튼을 감싸는 박스 */
+.action-buttons {
+    display: flex;        /* 가로 배치 시작! */
+    gap: 10px;            /* 버튼 사이 간격 10px */
+    width: 100%;          /* 전체 너비 사용 */
+    margin-top: 20px;     /* 위쪽 여백 */
+}
+
+/* 2. 버튼 공통 설정 (크기 통일의 핵심) */
+.action-buttons .contact-btn {
+    flex: 1;              /* ★핵심: 공간을 1:1로 똑같이 나눠 가짐 ★ */
+    width: auto;          /* 고정 너비 해제 */
+    padding: 14px 0;      /* 위아래 두께(높이) 통일 */
+    margin: 0;            /* 불필요한 여백 제거 */
+    
+    /* 내용물 가운데 정렬 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    font-size: 15px;      /* 글자 크기 통일 */
+    border-radius: 30px;  /* 둥근 모서리 통일 */
+    cursor: pointer;
+    white-space: nowrap;  /* 글자 줄바꿈 방지 */
+}
+
+/* 3. [왼쪽] 사전등록 버튼 색상 (흰색 채움) */
+.action-buttons .main-btn {
+    background: #fff;
+    color: #000;
+    border: 1px solid #fff; /* 테두리 두께를 맞춰야 크기가 똑같아짐 */
+}
+
+/* 4. [오른쪽] 공유하기 버튼 색상 (투명 + 흰 테두리) */
+.action-buttons .share-btn {
+    background: transparent; /* 배경 투명 */
+    color: #fff;             /* 글자 흰색 */
+    border: 1px solid #fff;  /* 흰색 테두리 */
+}
+
+/* 마우스 올렸을 때 효과 */
+.action-buttons .share-btn:hover {
+    background: rgba(255, 255, 255, 0.1); /* 살짝 밝게 */
+}
