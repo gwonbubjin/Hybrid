@@ -71,7 +71,13 @@
             </p>
 
             <div class="action-buttons">
-                <a href="https://www.aiexpo.co.kr/" target="_blank" class="contact-btn main-btn" data-lang="preRegBtn">온라인 사전등록</a>
+                <a href="https://www.aiexpo.co.kr/" target="_blank" class="contact-btn main-btn">
+                    온라인 사전등록
+                </a>
+                
+                <button class="contact-btn share-btn" onclick="shareSite()">
+                    📤 공유하기
+                </button>
             </div>
         </header>
 
@@ -261,8 +267,27 @@
             app.style.display = 'block';  // 앱 보여주기
             window.scrollTo(0, 0);        // 맨 위로 스크롤
         }
+
+        // 6. [NEW] ★ 공유하기 기능 (Web Share API) ★
+        function shareSite() {
+            // 공유할 데이터 설정
+            const shareData = {
+                title: 'AI EXPO KOREA 2026',
+                text: '아시아 최대 규모 인공지능 전시회에 초대합니다! 지금 확인해보세요.',
+                url: window.location.href // 현재 페이지 주소
+            };
+
+            // 브라우저가 공유 기능을 지원하는지 확인
+            if (navigator.share) {
+                navigator.share(shareData)
+                    .then(() => console.log('공유 성공!'))
+                    .catch((error) => console.log('공유 실패:', error));
+            } else {
+                // PC나 지원 안 하는 브라우저면 그냥 링크 복사해주기
+                navigator.clipboard.writeText(window.location.href)
+                    .then(() => alert("링크가 복사되었습니다! 친구에게 붙여넣기(Ctrl+V) 해서 알려주세요."));
+            }
+        }
     </script>
 </body>
-
 </html>
-
