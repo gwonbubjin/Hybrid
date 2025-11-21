@@ -13,17 +13,40 @@ const ASSETS_TO_CACHE = [
   './poster.jpg'
 ];
 
-self.addEventListener('install', (e) => {
+// 설치 시 캐시 채우기
+self.addEventListener('install', (event) => {
   console.log('[Service Worker] Install');
-  self.skipWaiting(); // 설치 즉시 활성화
+  event.waitUntil(
+    caches.open(CACHE_NAME).then((cache) => {
+      return cache.addAll(ASSETS_TO_CACHE);
+    })
+  );
+  self.skipWaiting();
 });
 
-self.addEventListener('activate', (e) => {
+// 오래된 캐시 정리 + 즉시 제어권
+self.addEventListener('activate', (event) => {
   console.log('[Service Worker] Activate');
-  e.waitUntil(self.clients.claim()); // 즉시 제어권 가져오기
+  event.waitUntil(
+    caches.keys().then((keys) =>
+      Promise.all(
+        keys
+          .filter((key) => key !== CACHE_NAME)
+          .map((key) => caches.delete(key))
+      )
+    )
+  );
+  self.clients.claim();
 });
 
-self.addEventListener('fetch', (e) => {
-  // 기본적으로 네트워크 요청을 그대로 수행 (설치 조건 충족용)
-  e.respondWith(fetch(e.request)); 
+// 캐시 우선 + 네트워크 백업
+self.addEventListener('fetch', (event) => {
+  event.respondWith(
+    caches.match(event.request).then((cachedResponse) => {
+      if (cachedResponse) {
+        return cachedResponse; // 캐시에 있으면 그걸 사용
+      }
+      return fetch(event.request); // 없으면 네트워크로
+    })
+  );
 });
