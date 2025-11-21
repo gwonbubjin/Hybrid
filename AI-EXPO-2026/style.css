@@ -128,12 +128,32 @@ a { text-decoration: none; color: inherit; }
 
 
 /* 모바일 배경 슬라이드쇼 (전체 꽉 차게) */
+/* 1. 배경을 더 어둡게 변경 (0.6 -> 0.8) */
 .cover-slideshow {
     display: block;
     position: absolute;
-    top: 0; left: 0; width: 100%; height: 100%;
+    top: 0;
+    left: 0;     
+    width: 100%; 
+    height: 100%;
     z-index: 0;
-    background: rgba(0,0,0,0.6); 
+    
+    /* 배경을 더 진하게 눌러줌 */
+    background: rgba(0, 0, 0, 0.8); 
+}
+
+/* 2. 글자에 진한 그림자 추가 (가독성 UP) */
+.cover-content {
+    position: relative;
+    z-index: 2;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; 
+    
+    /* ★ 핵심: 글자 테두리에 진한 그림자를 줘서 또렷하게 만듦 ★ */
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.9);
 }
 
 .cover-slide {
