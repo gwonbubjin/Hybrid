@@ -1,9 +1,0 @@
-{
-  "name": "hybrid-airdash",
-  "private": true,
-  "type": "module",
-  "scripts": {
-    "build": "node fetch-seed.mjs"
-  }
-}
-
