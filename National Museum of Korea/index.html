@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>국립중앙박물관</title>
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+    <div id="splash" class="splash">
+        <div class="splash-inner">
+            <div class="splash-logo"><img src="images/logo.png" alt="문화체육관광부 로고"></div>
+            <div class="splash-title">국립중앙박물관</div>
+            <div class="splash-subtitle">National Museum of Korea</div>
+            <div class="splash-ring"></div>
+        </div>
+    </div>
+    <!-- 헤더 네비게이션 -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+               <div class="logo">
+                <a href="#hero" class="logo-link" aria-label="상단으로 이동">
+                    <img src="images/logo.png" alt="국립중앙박물관 로고">
+                </a>
+            </div>
+
+                <button class="hamburger" id="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="#about" class="nav-link">소개</a></li>
+                    <li><a href="#visit-info" class="nav-link">관람정보</a></li>
+                    <li><a href="#exhibitions" class="nav-link">전시</a></li>
+                    <li><a href="#events" class="nav-link">문화행사</a></li>
+                    <li><a href="#collection-search" class="nav-link">컬렉션 검색</a></li>
+                    <li class="has-submenu">
+                        <button class="nav-link submenu-toggle" aria-haspopup="true" aria-expanded="false">시설 소개 ▾</button>
+                        <ul class="submenu" role="menu">
+                            <li role="none"><a role="menuitem" href="#layout-map" class="submenu-link">배치 현황</a></li>
+                            <li role="none"><a role="menuitem" href="#floor-detail" class="submenu-link">층별 상세</a></li>
+                            <li role="none"><a role="menuitem" href="#facility-overview" class="submenu-link">시설 개요</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#timeline" class="nav-link">연혁</a></li>
+                    <li><a href="#location" class="nav-link">오시는길</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <!-- 히어로 섹션 -->
+<section class="hero" id="hero">
+    <div class="hero-content">
+        
+        <div class="hero-text">
+            <h2 class="hero-title">한국의 역사와 문화</h2>
+            <p class="hero-subtitle">5천 년 한국 역사의 정수를 만나다</p>
+            <button class="cta-button">더 알아보기</button>
+        </div>
+
+        <div class="hero-video">
+            <div class="video-wrap">
+              <iframe
+                src="https://www.youtube.com/embed/EU8XqtAgAz0?autoplay=1&mute=1&playsinline=1&controls=1&rel=0&modestbranding=1"
+                title="국립중앙박물관 홍보영상"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen
+                referrerpolicy="strict-origin-when-cross-origin"
+                playsinline
+              ></iframe>
+            </div>
+          </div>
+</section>
+
+    <!-- 박물관 소개 -->
+    <section class="about" id="about">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">박물관 소개</h2>
+                <div class="title-underline"></div>
+            </div>
+
+            <div class="about-content">
+                <div class="about-text">
+                    <p class="about-description">
+                        <b>국립중앙박물관은</b> 한국과 세계의 문화유산을 체계적으로 보존하고 <b>연구·전시·교육</b>을 통해 국민의 창조적 문화 활동과 행복한 삶에 기여하는 종합문화기관을 목표로 하고 있으며, ‘<b>모두를 위한 박물관</b>’이라는 비전 아래 삶·미래·세계라는 세 가지 방향성을 중심으로 운영 전략을 펼치고 있습니다. 생활 속에서 가까이 다가오는 박물관을 목표로, <b>빅데이터</b> 기반의 맞춤형 서비스와 생애주기별 프로그램을 통해 이용자 중심의 환경을 조성하고, 누구나 편안하게 이용할 수 있도록 포용적 공간을 확장하며 남북문화와 공동체 이해를 위한 연구도 함께 추진합니다. 아울러 미래를 선도하는 박물관으로서 <b>AI, AR, VR, IoT</b> 등 첨단 기술을 활용한 스마트 박물관 환경을 구축하고, 코로나19 이후 온라인 전시·비대면 프로그램 확대 등 새로운 관람문화를 제시하며 지역의 문화 이야기들을 재해석해 생동감 있는 콘텐츠를 창조합니다. 또한 세계로 나아가는 박물관을 지향해 <b>한국문화의 정체성</b>을 세계에 알리고 다양한 국제교류와 교육 협력을 강화하며, 다문화·다양성 기반의 프로그램 확산으로 경계를 넘어서는 문화공간을 구축하고 세계인이 인식하는 <b>한국문화 브랜드</b>로서의 역할을 강화하고 있습니다. 이러한 방향성 아래 국립중앙박물관은 국민과 함께하고 미래를 준비하며 세계와 연결되는 열린 박물관으로 계속 발전하고자 합니다.
+                    </p>
+                    <div class="about-highlights">
+                        <div class="highlight">
+                            <h3>33만 점</h3>
+                            <p>소장 문화재</p>
+                        </div>
+                        <div class="highlight">
+                            <h3>1945년</h3>
+                            <p>개관 이래 역사</p>
+                        </div>
+                        <div class="highlight">
+                            <h3>9개</h3>
+                            <p>전문 박물관</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-image">
+                    <div class="image-placeholder about-main-image"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 관람정보 -->
+    <section class="visit-info" id="visit-info">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">관람정보</h2>
+                <div class="title-underline"></div>
+            </div>
+
+            <div class="visit-info-grid">
+                <div class="info-card">
+                    <div class="info-icon">🕐</div>
+                    <h3 class="info-title">관람시간</h3>
+                    <p class="info-text">
+                        월요일 ~ 일요일: 10:00 - 18:00<br>
+                        토요일, 공휴일: 10:00 - 21:00 (연장 개방)<br>
+                        매주 월요일 휴관 (월요일이 공휴일인 경우 다음날 휴관)
+                    </p>
+                </div>
+
+                <div class="info-card">
+                    <div class="info-icon">💰</div>
+                    <h3 class="info-title">입장료</h3>
+                    <p class="info-text">
+                        상설전시: 무료<br>
+                        특별전시: 별도 요금<br>
+                        청소년/어린이: 무료 (상설전시)
+                    </p>
+                </div>
+
+                <div class="info-card">
+                    <div class="info-icon">📞</div>
+                    <h3 class="info-title">문의</h3>
+                    <p class="info-text">
+                        대표전화: 02-2077-9000<br>
+                        관람안내: 02-2077-9000<br>
+                        팩스: 02-2077-9299
+                    </p>
+                </div>
+
+                <div class="info-card">
+                    <div class="info-icon">🚗</div>
+                    <h3 class="info-title">주차안내</h3>
+                    <p class="info-text">
+                        주차 가능 (유료)<br>
+                        대형버스 주차 가능<br>
+                        주차장 운영시간: 10:00 - 22:00
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 전시 -->
+<section class="exhibitions" id="exhibitions">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">전시</h2>
+            <div class="title-underline"></div>
+        </div>
+
+        <div class="exhibitions-grid">
+
+            <!-- ✅ 선사·고대 전시 -->
+            <div class="exhibition-card">
+                <div class="exhibition-image img-prehistory"></div>
+                <div class="exhibition-info">
+                    <span class="exhibition-badge">상설 전시</span>
+                    <h3 class="exhibition-title">선사·고대 전시</h3>
+                    <p class="exhibition-description">
+                        인류가 한반도에 살기 시작한 구석기시대부터 통일신라와 발해가 공존한 남북국시대까지 우리나라의 역사와 문화를 시간의 흐름에 따라 보여주는 통사적 전시 공간입니다.
+                    </p>
+                    <a href="https://www.museum.go.kr/MUSEUM/contents/M0201030100.do?showHallId=760&showroomCode=DM0002" class="exhibition-link">자세히 보기 →</a>
+                </div>
+            </div>
+
+            <!-- ✅ 중·근세 전시 -->
+            <div class="exhibition-card">
+                <div class="exhibition-image img-medieval"></div>
+                <div class="exhibition-info">
+                    <span class="exhibition-badge">상설 전시</span>
+                    <h3 class="exhibition-title">중·근세 전시</h3>
+                    <p class="exhibition-description">
+                        고려(918~1392), 조선(1392~1897), 대한제국(1897~1910)실로 꾸며진 북쪽 전시 공간은 당시의 역사를 엿볼 수 있는 자료를 전시하여, 관람객이 한국 중세, 근세의 역사를 쉽게 이해하고 흥미를 느끼도록 꾸몄습니다.
+                    </p>
+                    <a href="https://www.museum.go.kr/MUSEUM/contents/M0201040100.do?showHallId=759&showroomCode=DM0036" class="exhibition-link">자세히 보기 →</a>
+                </div>
+            </div>
+
+            <!-- ✅ 세계문화관(특별전시) -->
+            <div class="exhibition-card">
+                <div class="exhibition-image img-worldculture"></div>
+                <div class="exhibition-info">
+                    <span class="exhibition-badge">특별 전시</span>
+                    <h3 class="exhibition-title">세계문화관 전시</h3>
+                    <p class="exhibition-description">
+                        중국, 일본, 중앙아시아, 인도·동남아시아, 고대 그리스·로마 등 세계 각 지역의 다양한 문화를 전시하며 문화적 다양성과 교류의 흐름을 보여주는 전시 공간입니다.
+                    </p>
+                    <a href="https://www.museum.go.kr/MUSEUM/contents/M0201090200.do?showHallId=756&showroomCode=DM0024" class="exhibition-link">자세히 보기 →</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+    <!-- 문화행사 -->
+    <section class="events" id="events">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">문화행사</h2>
+                <div class="title-underline"></div>
+            </div>
+
+            <div class="events-grid">
+                <div class="event-card">
+                    <div class="event-icon">🎨</div>
+                    <h3 class="event-title">전통 문화 체험</h3>
+                    <p class="event-description">
+                        도자기, 서예, 전통 공예 등 다양한 전통 문화를
+                        직접 체험하고 배울 수 있는 프로그램입니다.
+                    </p>
+                    <div class="event-date">매주 토요일 14:00</div>
+                </div>
+
+                <div class="event-card">
+                    <div class="event-icon">📚</div>
+                    <h3 class="event-title">강연 및 세미나</h3>
+                    <p class="event-description">
+                        전문가들의 깊이 있는 강연을 통해 한국 역사와
+                        문화를 더욱 깊이 있게 이해할 수 있습니다.
+                    </p>
+                    <div class="event-date">매주 일요일 15:00</div>
+                </div>
+
+                <div class="event-card">
+                    <div class="event-icon">👨‍👩‍👧‍👦</div>
+                    <h3 class="event-title">가족 프로그램</h3>
+                    <p class="event-description">
+                        아이부터 어른까지 함께 즐길 수 있는
+                        맞춤형 가족 문화 체험 프로그램입니다.
+                    </p>
+                    <div class="event-date">매주 일요일 10:00</div>
+                </div>
+
+                <div class="event-card">
+                    <div class="event-icon">🎭</div>
+                    <h3 class="event-title">전시 설명회</h3>
+                    <p class="event-description">
+                        전시 해설사와 함께 전시를 관람하면서
+                        더 깊이 있는 이해를 얻을 수 있습니다.
+                    </p>
+                    <div class="event-date">평일 11:00, 14:00</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 컬렉션 검색 -->
+    <section class="collection-search" id="collection-search">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">컬렉션 검색</h2>
+                <div class="title-underline"></div>
+            </div>
+
+            <div class="search-container">
+                <div class="search-box">
+                    <input type="text" id="searchInput" class="search-input" placeholder="소장품을 검색해보세요...">
+                    <button class="search-button" id="searchButton">검색</button>
+                </div>
+                <div class="collection-categories">
+                    <button class="category-filter active" data-category="all">전체</button>
+                    <button class="category-filter" data-category="ceramics">도자기</button>
+                    <button class="category-filter" data-category="calligraphy">서화</button>
+                    <button class="category-filter" data-category="sculpture">조각</button>
+                    <button class="category-filter" data-category="crafts">공예</button>
+                </div>
+            </div>
+
+            <div class="collection-grid" id="collectionGrid">
+                <div class="collection-item" data-category="ceramics">
+                    <div class="item-image ci-cheongja-tile"></div>
+                    <div class="item-info">
+                        <h4 class="item-title">청자로 만든 기와</h4>
+                        <p class="item-period">고려시대</p>
+                    </div>
+                </div>
+
+                <div class="collection-item" data-category="calligraphy">
+                    <div class="item-image ci-taejo-eojin"></div>
+                    <div class="item-info">
+                        <h4 class="item-title">태조 어진</h4>
+                        <p class="item-period">조선시대</p>
+                    </div>
+                </div>
+
+                <div class="collection-item" data-category="sculpture">
+                    <div class="item-image ci-goguryeo-gold"></div>
+                    <div class="item-info">
+                        <h4 class="item-title">고구려 금동관</h4>
+                        <p class="item-period">고려시대</p>
+                    </div>
+                </div>
+
+                <div class="collection-item" data-category="crafts">
+                    <div class="item-image ci-bonghwang-glass"></div>
+                    <div class="item-info">
+                        <h4 class="item-title">봉황 머리 모양 유리병</h4>
+                        <p class="item-period">신라시대</p>
+                    </div>
+                </div>
+
+                <div class="collection-item" data-category="ceramics">
+                    <div class="item-image ci-sangpyeong"></div>
+                    <div class="item-info">
+                        <h4 class="item-title">상평 통보</h4>
+                        <p class="item-period">조선시대</p>
+                    </div>
+                </div>
+
+                <div class="collection-item" data-category="calligraphy">
+                    <div class="item-image ci-dambatdae"></div>
+                    <div class="item-info">
+                        <h4 class="item-title">담뱃대 걸이</h4>
+                        <p class="item-period">조선시대</p>
+                    </div>
+                </div>
+
+                <div class="collection-item" data-category="sculpture">
+                    <div class="item-image ci-bisubantara"></div>
+                    <div class="item-info">
+                        <h4 class="item-title">비슈반타라 왕자 본생도도</h4>
+                        <p class="item-period">중앙 아시아</p>
+                    </div>
+                </div>
+
+                <div class="collection-item" data-category="crafts">
+                    <div class="item-image ci-buncheong-lotus"></div>
+                    <div class="item-info">
+                        <h4 class="item-title">분청사기 상감 연꽃 물새무늬 매병</h4>
+                        <p class="item-period">조각</p>
+                    </div>
+                </div>
+
+                <!-- 추가 아이템: 반가사유상 -->
+                <div class="collection-item" data-category="sculpture">
+                    <div class="item-image ci-bangasa"></div>
+                    <div class="item-info">
+                        <h4 class="item-title">반가사유상</h4>
+                        <p class="item-period">삼국시대</p>
+                    </div>
+                </div>
+
+                <!-- 추가 아이템: 보신각종 -->
+                <div class="collection-item" data-category="crafts">
+                    <div class="item-image ci-bosingak-bell"></div>
+                    <div class="item-info">
+                        <h4 class="item-title">보신각종</h4>
+                        <p class="item-period">조선시대</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- 연혁 -->
+    <section class="timeline-section" id="timeline">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">연혁</h2>
+                <div class="title-underline"></div>
+            </div>
+
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h3>1945.11.03</h3>
+                        <p>국립박물관 개관 (덕수궁 석조전)</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h3>1972.08.16</h3>
+                        <p>경복궁 내 신축건물로 이전 개관</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h3>1986.08.11</h3>
+                        <p>중앙박물관으로 개칭, 용산 신축건물로 이전</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h3>2005.10.28</h3>
+                        <p>국립중앙박물관 용산 신축건물 개관</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h3>2012.07.13</h3>
+                        <p>관람객 1,000만 명 돌파</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h3>2020.12.07</h3>
+                        <p>온라인 전시관 'e-뮤지엄' 오픈</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 배치 현황 -->
+    <section class="layout-section" id="layout-map">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">배치 현황</h2>
+            </div>
+            <h3 class="layout-subtitle">전체 공간</h3>
+
+            <div class="layout-card">
+                <img class="layout-image" src="images/layout/overall-map.png" alt="국립중앙박물관 전체 공간 배치 현황">
+            </div>
+        </div>
+    </section>
+
+    <!-- 층별 상세 -->
+    <section class="floor-section" id="floor-detail">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">층별 상세</h2>
+            </div>
+
+            <div class="floor-tabs" id="floorTabs" role="tablist" aria-label="층 선택">
+                <button class="floor-tab active" role="tab" aria-selected="true" data-floor="b1">B1</button>
+                <button class="floor-tab" role="tab" aria-selected="false" data-floor="1f">1F</button>
+                <button class="floor-tab" role="tab" aria-selected="false" data-floor="2f">2F</button>
+                <button class="floor-tab" role="tab" aria-selected="false" data-floor="3f">3F</button>
+                <button class="floor-tab" role="tab" aria-selected="false" data-floor="4f">4F</button>
+                <button class="floor-tab" role="tab" aria-selected="false" data-floor="5f">5F</button>
+                <button class="floor-tab" role="tab" aria-selected="false" data-floor="6f">6F</button>
+            </div>
+
+            <div class="floor-card">
+                <div class="floor-grid">
+                    <div class="floor-visual">
+                        <img id="floorImage" class="floor-image" src="images/layout/floors/b1.png" alt="B1 층 배치도">
+                    </div>
+                    <div class="floor-info" id="floorInfo">
+                        <h3 class="floor-info-title">B1</h3>
+                        <p class="floor-info-text"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 시설 개요 -->
+    <section class="facility-section" id="facility-overview">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">시설 개요</h2>
+            </div>
+
+            <div class="facility-card">
+                <div class="facility-images">
+                    <img class="facility-image" src="images/facility/overview-top.png" alt="시설 개요 상단 이미지">
+                    <img class="facility-image" src="images/facility/overview-bottom.png" alt="시설 개요 하단 이미지">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 오시는길 -->
+    <section class="location" id="location">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">오시는길</h2>
+                <div class="title-underline"></div>
+            </div>
+
+            <div class="location-content">
+                <div class="location-info">
+                    <div class="location-item">
+                        <h3 class="location-title">📍 주소</h3>
+                        <p class="location-text">
+                            04383 서울시 용산구 서빙고로 137
+(용산동6가 168-6)<br>
+                            국립중앙박물관
+                        </p>
+                    </div>
+
+                    <div class="location-item">
+                        <h3 class="location-title">🚇 지하철</h3>
+                        <p class="location-text">
+                            4호선 이촌역 2번 출구 (도보 15분)<br>
+                            경의중앙선 이촌역 2번 출구 (도보 15분)
+                        </p>
+                    </div>
+
+                    <div class="location-item">
+                        <h3 class="location-title">🚌 버스</h3>
+                        <p class="location-text">
+                            간선: 400, 502<br>
+                            지선: 0212, 2014, 2016<br>
+                            광역: 9401, 9403
+                        </p>
+                    </div>
+                </div>
+
+                <div class="location-map">
+                    <div class="map-placeholder map-image"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 푸터 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3 class="footer-title">국립중앙박물관</h3>
+                    <p class="footer-text">
+                        한국의 역사와 문화를 보존하고 전승하는<br>
+                        국가 대표 박물관입니다.
+                    </p>
+                </div>
+
+                <div class="footer-section">
+                    <h3 class="footer-title">빠른 링크</h3>
+                    <ul class="footer-links">
+                        <li><a href="#about">소개</a></li>
+                        <li><a href="#visit-info">관람정보</a></li>
+                        <li><a href="#exhibitions">전시</a></li>
+                        <li><a href="#events">문화행사</a></li>
+                        <li><a href="#collection-search">컬렉션 검색</a></li>
+                        <li><a href="#notice">공지</a></li>
+                        <li><a href="#location">오시는길</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h3 class="footer-title">정보</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">개인정보 처리방침</a></li>
+                        <li><a href="#">사이트맵</a></li>
+                        <li><a href="#">온라인 예매</a></li>
+                        <li><a href="#">뉴스레터 구독</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h3 class="footer-title">소셜 미디어</h3>
+                    <div class="social-icons">
+                        <a href="#" class="social-icon">Facebook</a>
+                        <a href="#" class="social-icon">Instagram</a>
+                        <a href="#" class="social-icon">YouTube</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2025 국립중앙박물관. Caps Lock 임선우/권법진/김종현.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Google Maps API -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places"></script>
+    
+    <script src="js/main.js"></script>
+</body>
+</html>
+
