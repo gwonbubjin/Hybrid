@@ -1,0 +1,367 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>대한민국 대기질 대시보드</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+  body { margin:0; font-family:"Noto Sans KR", sans-serif; background:#f3f4f6; color:#111827;}
+
+  /* 헤더 */
+  header { 
+    background:#1e3a8a; color:white; 
+    padding:15px 20px; 
+    display:flex; justify-content:space-between; align-items:center; 
+    box-shadow:0 2px 6px rgba(0,0,0,0.3);
+  }
+  header h1 { margin:0; font-size:1.6rem; font-weight:700;}
+  #navBtns button { 
+    margin-left:8px; padding:6px 12px; 
+    border:none; border-radius:6px; cursor:pointer; 
+    font-weight:600; font-size:0.9rem;
+  }
+  #homeBtn { background:#facc15; color:#111; }
+  #backBtn { background:#22c55e; color:white; }
+
+  /* 안내 배너 */
+  #desc { background:#1e40af; color:white; padding:10px 20px; font-size:0.9rem; text-align:center; }
+
+  /* 홈 화면 */
+  #homeHero {
+    text-align:center; padding:40px 20px 20px;
+  }
+  #homeHero h2 {
+    font-size:1.8rem; margin:10px 0; color:#1e3a8a;
+  }
+  #homeHero p {
+    font-size:1rem; color:#374151; margin:0;
+  }
+  #todayInfo {
+    margin-top:8px; font-size:0.9rem; color:#6b7280;
+  }
+
+  /* 전국 요약 */
+  #nationSummaryBox {
+    max-width:600px; margin:20px auto; 
+    background:white; padding:16px; 
+    border-radius:12px; 
+    box-shadow:0 2px 10px rgba(0,0,0,0.08);
+    text-align:center; font-size:1rem;
+  }
+
+  /* 시/도 버튼 영역 */
+  #regions { 
+    display:grid; grid-template-columns:repeat(auto-fill, minmax(120px, 1fr)); 
+    gap:16px; max-width:800px; margin:30px auto; padding:0 20px;
+  }
+  .region { 
+    background:white; border:2px solid #1e3a8a; color:#1e3a8a; 
+    border-radius:10px; padding:14px 0; text-align:center; 
+    font-weight:700; cursor:pointer; transition:.2s;
+    box-shadow:0 1px 4px rgba(0,0,0,0.05);
+  }
+  .region:hover { background:#1e3a8a; color:white; transform:translateY(-3px) scale(1.03);}
+
+  /* 데이터 화면 상단 여백 + 검색 영역 */
+  #dataScreen { padding-top: 20px; }
+  #controls { 
+    margin:20px auto 0; padding:16px; 
+    max-width:900px; width:92%;
+    background:white; border-radius:12px; 
+    box-shadow:0 2px 10px rgba(0,0,0,0.08);
+    display:flex; flex-wrap:wrap; justify-content:center; gap:12px;
+  }
+  #searchBox, #sortSelect { 
+    padding:10px 14px; border:1px solid #d1d5db; border-radius:8px; font-size:1rem;
+  }
+  #searchBox { flex:1; min-width:240px; }
+  #sortSelect { min-width:180px; }
+
+  /* 요약 카드 */
+  #summary { 
+    padding:20px; display:flex; justify-content:center; gap:20px; flex-wrap:wrap;
+    max-width:1100px; margin:16px auto 0;
+  }
+  .summary-card { flex:1; min-width:260px; background:white; border-radius:12px; padding:16px; box-shadow:0 2px 6px rgba(0,0,0,0.12);}
+  .summary-card h3 { margin:0 0 10px; font-size:1.2rem;}
+
+  /* 업데이트 라인 */
+  #lastUpdate { font-size:0.85rem; color:#555; text-align:center; margin:8px 0 0; }
+
+  /* 카드 리스트 */
+  #info { 
+    padding:20px; display:grid; grid-template-columns:repeat(auto-fill, minmax(260px, 1fr)); gap:16px;
+    max-width:1100px; margin:12px auto 30px;
+  }
+  #info h2 { grid-column:1/-1; margin:8px 0 4px; }
+
+  .card { border-radius:12px; padding:16px; box-shadow:0 2px 6px rgba(0,0,0,0.1); cursor:pointer; transition:.2s; }
+  .card:hover { transform:translateY(-4px) scale(1.02);}
+  .title { font-weight:700; font-size:1.1rem; margin-bottom:6px;}
+  .muted { font-size:0.85rem; color:#6b7280; margin-bottom:10px;}
+  .chip { display:inline-block; padding:6px 10px; border-radius:999px; font-size:0.9rem; font-weight:600; margin-bottom:8px;}
+  .good { background:#d1fae5; color:#065f46;}
+  .normal { background:#fef9c3; color:#854d0e;}
+  .bad { background:#fee2e2; color:#991b1b;}
+  .verybad { background:#f5d0fe; color:#701a75;}
+  .good-bg { background:#ecfdf5;}
+  .normal-bg { background:#fefce8;}
+  .bad-bg { background:#fef2f2;}
+  .verybad-bg { background:#fdf4ff;}
+
+  /* 모달 */
+  #modal { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.6); justify-content:center; align-items:center;}
+  #modalContent { background:white; padding:20px; border-radius:12px; max-width:640px; width:92%; max-height:90%; overflow-y:auto; box-shadow:0 10px 24px rgba(0,0,0,.2);}
+  #closeModal { float:right; cursor:pointer; font-weight:bold; }
+  #modalBody h3 { margin-top:0;}
+</style>
+</head>
+<body>
+<header>
+  <h1>대한민국 대기질 대시보드</h1>
+  <div id="navBtns">
+    <button id="homeBtn" onclick="goHome()">🏠 홈</button>
+    <button id="backBtn" onclick="goBack()">⬅ 뒤로가기</button>
+  </div>
+</header>
+<div id="desc">
+  ※ 환경부 공공데이터포털 <b>실시간 대기오염정보 API</b> 사용 · 모든 동·읍·면이 아닌 <b>측정소 설치 지역만</b> 데이터 제공
+</div>
+
+<!-- 홈화면 -->
+<div id="homeScreen">
+  <div id="homeHero">
+    <div style="font-size:48px;">🌏</div>
+    <h2>실시간 대한민국 대기질</h2>
+    <p>깨끗한 공기, 안전한 생활을 위한 실시간 모니터링</p>
+    <div id="todayInfo"></div>
+  </div>
+
+  <div id="nationSummaryBox">
+    <span id="nationSummary">전국 대기질 데이터를 불러오는 중...</span>
+  </div>
+
+  <h3 style="text-align:center; margin-top:30px;">시/도를 선택하세요</h3>
+  <div id="regions">
+    <div class="region">서울</div><div class="region">부산</div><div class="region">대구</div>
+    <div class="region">인천</div><div class="region">광주</div><div class="region">대전</div>
+    <div class="region">울산</div><div class="region">세종</div><div class="region">경기</div>
+    <div class="region">강원</div><div class="region">충북</div><div class="region">충남</div>
+    <div class="region">전북</div><div class="region">전남</div><div class="region">경북</div>
+    <div class="region">경남</div><div class="region">제주</div>
+  </div>
+</div>
+
+<!-- 데이터화면 -->
+<div id="dataScreen" style="display:none;">
+  <div id="controls">
+    <input type="text" id="searchBox" placeholder="측정소 검색 (예: 태종대)">
+    <select id="sortSelect">
+      <option value="">정렬 없음</option>
+      <option value="pm10">PM10 높은 순</option>
+      <option value="pm25">PM2.5 높은 순</option>
+      <option value="o3">오존 높은 순</option>
+    </select>
+  </div>
+  <div id="summary"></div>
+  <div id="lastUpdate"></div>
+  <div id="info"></div>
+</div>
+
+<!-- 모달 -->
+<div id="modal"><div id="modalContent">
+  <span id="closeModal">X</span>
+  <div id="modalBody"></div>
+</div></div>
+
+<script>
+/* =========================
+   🔒 브라우저에서는 API 키를 쓰지 않음 (스냅샷 SEED만 사용)
+   ========================= */
+let currentItems = [];
+let currentSido = "";
+let chartDetail = null;
+let screenHistory = [];
+
+/* SEED(JSON 스냅샷)를 안전하게 읽는 헬퍼 */
+function getSeed(){
+  const tag = document.getElementById("SEED_DATA");
+  if(!tag) return null;
+  try { return JSON.parse(tag.textContent); }
+  catch(e){ return null; }
+}
+
+/* 내비게이션 */
+function goHome(){
+  document.getElementById("homeScreen").style.display="block";
+  document.getElementById("dataScreen").style.display="none";
+  screenHistory = [];
+}
+function goBack(){
+  if(screenHistory.length>1){
+    screenHistory.pop();
+    const prev = screenHistory.pop();
+    if(prev) loadData(prev);
+  } else {
+    goHome();
+  }
+}
+
+/* 등급 표시 */
+function gradeClass(grade){
+  switch(String(grade)){
+    case "1": return {cls:"good", text:"좋음 ✅", bg:"good-bg"};
+    case "2": return {cls:"normal", text:"보통 😐", bg:"normal-bg"};
+    case "3": return {cls:"bad", text:"나쁨 ⚠️", bg:"bad-bg"};
+    case "4": return {cls:"verybad", text:"매우나쁨 ❌", bg:"verybad-bg"};
+    default: return {cls:"", text:"-", bg:""};
+  }
+}
+
+/* 리스트 렌더 */
+function renderItems(items, sido){
+  const info = document.getElementById("info");
+  if(!items || items.length===0){ info.innerHTML="<p>검색 결과가 없습니다.</p>"; return; }
+
+  const toNum = v => Number(v ?? NaN);
+  let sortable = items.filter(x => !isNaN(toNum(x.pm10Value)));
+  let sorted = sortable.sort((a,b)=>toNum(a.pm10Value)-toNum(b.pm10Value));
+  let best = sorted[0] || {stationName:"-", pm10Value:"-", pm25Value:"-"};
+  let worst = sorted[sorted.length-1] || {stationName:"-", pm10Value:"-", pm25Value:"-"};
+
+  document.getElementById("summary").innerHTML = `
+    <div class="summary-card">
+      <h3>✅ 가장 공기 좋은 곳</h3>
+      <p><b>${best.stationName}</b><br>PM10: ${best.pm10Value}, PM2.5: ${best.pm25Value}</p>
+    </div>
+    <div class="summary-card">
+      <h3>❌ 가장 공기 나쁜 곳</h3>
+      <p><b>${worst.stationName}</b><br>PM10: ${worst.pm10Value}, PM2.5: ${worst.pm25Value}</p>
+    </div>
+  `;
+
+  info.innerHTML = `<h2>${sido} 대기질 (${items.length}개 측정소)</h2>`+
+    items.map(it=>{
+      const g=gradeClass(it.khaiGrade);
+      const safeName = String(it.stationName || "").replace(/'/g,"&#39;");
+      return `<div class="card ${g.bg}" onclick="openModal('${safeName}')">
+        <div class="title">${it.stationName}</div>
+        <div class="muted">${it.dataTime || ""}</div>
+        <span class="chip ${g.cls}">${g.text}</span>
+        <div>PM10: ${it.pm10Value??"-"}</div>
+        <div>PM2.5: ${it.pm25Value??"-"}</div>
+        <div>오존(O₃): ${it.o3Value??"-"}</div>
+      </div>`;
+    }).join("");
+}
+
+/* 데이터 로드: SEED만 사용 */
+async function loadData(sido){
+  const SEED = getSeed();
+  currentSido=sido;
+  document.getElementById("homeScreen").style.display="none";
+  document.getElementById("dataScreen").style.display="block";
+  screenHistory.push(sido);
+
+  try{
+    if(!SEED || !SEED.data || !SEED.data[sido]) throw new Error("no baked data");
+    currentItems = SEED.data[sido].response?.body?.items || [];
+    renderItems(currentItems,sido);
+    document.getElementById("lastUpdate").innerText="마지막 업데이트: "+(SEED.updatedAt || "");
+  }catch(err){
+    document.getElementById("info").innerHTML=`<p>데이터 없음(스냅샷 미주입). Actions 빌드 후 다시 확인하세요.</p>`;
+  }
+}
+
+/* 검색 */
+document.getElementById("searchBox").addEventListener("input",e=>{
+  const k=e.target.value.trim();
+  if(k===""){renderItems(currentItems,currentSido);return;}
+  const f=currentItems.filter(it=>(it.stationName||"").includes(k));
+  renderItems(f,"검색 결과");
+});
+
+/* 정렬 */
+document.getElementById("sortSelect").addEventListener("change",e=>{
+  let v=e.target.value;
+  let sorted=[...currentItems];
+  const asNum = (x)=>Number(x??NaN);
+  if(v==="pm10") sorted.sort((a,b)=>asNum(b.pm10Value)-asNum(a.pm10Value));
+  if(v==="pm25") sorted.sort((a,b)=>asNum(b.pm25Value)-asNum(a.pm25Value));
+  if(v==="o3")   sorted.sort((a,b)=>asNum(b.o3Value)-asNum(a.o3Value));
+  renderItems(sorted,currentSido);
+});
+
+/* 상세 모달 */
+function openModal(name){
+  const it=currentItems.find(x=>x.stationName===name);
+  if(!it) return;
+  const g=gradeClass(it.khaiGrade);
+
+  document.getElementById("modalBody").innerHTML=`
+    <h3>${it.stationName}</h3>
+    <p>${it.dataTime || ""}</p>
+    <p>등급: <span class="${g.cls}">${g.text}</span></p>
+    <canvas id="detailChart" width="400" height="300"></canvas>
+  `;
+  document.getElementById("modal").style.display="flex";
+
+  if(chartDetail) chartDetail.destroy();
+  const vals = [
+    Number(it.pm10Value)||0, Number(it.pm25Value)||0, Number(it.o3Value)||0,
+    Number(it.coValue)||0, Number(it.so2Value)||0, Number(it.no2Value)||0
+  ];
+  chartDetail = new Chart(document.getElementById("detailChart"), {
+    type:'bar',
+    data:{
+      labels:["PM10","PM2.5","오존(O₃)","CO","SO₂","NO₂"],
+      datasets:[{ 
+        label:"측정값",
+        data: vals,
+        backgroundColor:["#3b82f6","#22c55e","#facc15","#f97316","#a855f7","#ef4444"]
+      }]
+    },
+    options:{responsive:true, scales:{y:{beginAtZero:true}}}
+  });
+}
+document.getElementById("closeModal").onclick=()=>{document.getElementById("modal").style.display="none";};
+document.getElementById("modal").onclick=e=>{if(e.target.id==="modal") document.getElementById("modal").style.display="none";};
+
+/* 자동 새로고침 (스냅샷 모드에선 비활성 권장) */
+// setInterval(()=>{ if(currentSido) loadData(currentSido); }, 300000);
+
+/* 홈 화면: 오늘 날짜 표시 */
+function updateDateTime(){
+  const now = new Date();
+  const opt = { year:"numeric", month:"long", day:"numeric", hour:"2-digit", minute:"2-digit" };
+  document.getElementById("todayInfo").innerText = now.toLocaleDateString("ko-KR", opt) + " 기준";
+}
+updateDateTime();
+setInterval(updateDateTime, 60000);
+
+/* 전국 요약 (서울) - SEED 사용 */
+async function loadNationSummary(){
+  const SEED = getSeed();
+  try {
+    const items = SEED?.data?.["서울"]?.response?.body?.items || [];
+    const avgPm10 = items.length
+      ? Math.round(items.reduce((s,it)=>s+Number(it.pm10Value||0),0)/items.length)
+      : NaN;
+    const grade = isNaN(avgPm10) ? "-" : (avgPm10<=30 ? "좋음 ✅" : avgPm10<=80 ? "보통 😐" : "나쁨 ⚠️");
+    document.getElementById("nationSummary").innerText =
+      isNaN(avgPm10) ? "전국 데이터를 불러올 수 없습니다." : `오늘 서울 평균 PM10: ${avgPm10} (${grade})`;
+  } catch {
+    document.getElementById("nationSummary").innerText = "전국 데이터를 불러올 수 없습니다.";
+  }
+}
+loadNationSummary();
+
+/* 지역 클릭 */
+document.querySelectorAll(".region").forEach(el=>el.addEventListener("click",()=>loadData(el.textContent)));
+</script>
+
+<!-- seed(스냅샷) 데이터가 여기에 주입됩니다 -->
+<script id="SEED_DATA" type="application/json">{"updatedAt":"2025-12-10T05:13:56.651Z","data":{"서울":{"error":true,"message":"Error: HTTP 401 for 서울"},"부산":{"error":true,"message":"Error: HTTP 401 for 부산"},"대구":{"error":true,"message":"Error: HTTP 401 for 대구"},"인천":{"error":true,"message":"Error: HTTP 401 for 인천"},"광주":{"error":true,"message":"Error: HTTP 401 for 광주"},"대전":{"error":true,"message":"Error: HTTP 401 for 대전"},"울산":{"error":true,"message":"Error: HTTP 401 for 울산"},"세종":{"error":true,"message":"Error: HTTP 401 for 세종"},"경기":{"error":true,"message":"Error: HTTP 401 for 경기"},"강원":{"error":true,"message":"Error: HTTP 401 for 강원"},"충북":{"error":true,"message":"Error: HTTP 401 for 충북"},"충남":{"error":true,"message":"Error: HTTP 401 for 충남"},"전북":{"error":true,"message":"Error: HTTP 401 for 전북"},"전남":{"error":true,"message":"Error: HTTP 401 for 전남"},"경북":{"error":true,"message":"Error: HTTP 401 for 경북"},"경남":{"error":true,"message":"Error: HTTP 401 for 경남"},"제주":{"error":true,"message":"Error: HTTP 401 for 제주"}}}</script>
+</body>
+</html>
