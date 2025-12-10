@@ -1,16 +1,41 @@
-# 📡 AI EXPO KOREA 2026 — PWA 홍보 웹앱
+📡 AI EXPO KOREA 2026 — PWA 홍보 웹앱
 
-## 📌 프로젝트 개요
+👥 팀원 구성
 
-AI EXPO KOREA 2026 행사 정보를 소개하는 **반응형 + PWA 기반** 웹앱입니다. 행사 일정, 로고 애니메이션, 배경 이미지, 설치 가능한 앱(PWA), 오프라인 접근 등을 포함하여 실제 전시회 홍보용 랜딩 페이지 형태로 제작되었습니다.
+이름
 
-이 프로젝트는 **100% HTML/CSS/JS 기반**으로 구성되어 GitHub Pages 또는 Netlify 등에서 즉시 배포 가능한 구조입니다.
+역할
 
----
+임선우
 
-## 📁 폴더 및 파일 구조
+프론트엔드 개발 / UI 인터랙션
 
-```
+권법진
+
+프로젝트 총괄 / 메인 개발 / PWA 구조 설계
+
+김종현
+
+디자인 / 이미지 리소스 관리
+
+이동현
+
+문서화 / 기능 검증 및 테스트
+
+📌 프로젝트 개요
+
+AI EXPO KOREA 2026 행사 정보를 소개하는 반응형 + PWA 기반 웹앱입니다.행사 일정, 로고 애니메이션, 배경 이미지 전환, 모바일 설치(PWA), 오프라인 접근 등을 모두 지원하며실제 행사 홍보용 랜딩 페이지 형태로 제작되었습니다.
+
+이 프로젝트는 100% HTML/CSS/JS 기반이며 GitHub Pages 또는 Netlify에 즉시 배포 가능합니다.
+
+🖼 프로젝트 스크린샷
+
+아래 영역에 실제 앱 실행 화면을 넣으면 됩니다.파일명 예: screenshot-main.png
+
+![메인 화면 스크린샷](./screenshot-main.png)
+
+📁 폴더 및 파일 구조
+
 AI-EXPO-2026/
 ├── index.html         # 메인 페이지 (행사 소개 UI)
 ├── style.css          # 전체 스타일
@@ -23,67 +48,82 @@ AI-EXPO-2026/
 ├── bg3.jpg
 ├── 1.jpg
 ├── poster.jpg         # 행사 포스터
-```
+├── screenshot-main.png  # <- 스크린샷(필요 시 추가)
 
----
+🎨 주요 UI 구성 요소
 
-## 🎨 주요 UI 구성 요소
+✅ 1. Hero Section
 
-### ✅ 1. Hero Section
+행사 로고 "AI EXPO KOREA 2026"
 
-* 행사 로고 "AI EXPO KOREA 2026" 표시
-* 한국어 부제: **2026 국제인공지능대전**
-* 행사 일정: **5.6(수) ~ 5.8(금), COEX Hall A**
-* 전체 화면 배경 이미지 적용
+한국어 부제: 2026 국제인공지능대전
 
-### ✅ 2. 배경 전환 효과
+행사 일정: 5.6(수) ~ 5.8(금), COEX Hall A
 
-* bg1, bg2, bg3 이미지가 번갈아 표시되는 비주얼 섹션
-* 페이드 인/아웃 애니메이션으로 전환
+풀스크린 배경 이미지 적용
 
-### ✅ 3. 카운트다운 UI
+✅ 2. 배경 전환 효과
 
-* 행사일까지 남은 **D-Day 카운트다운 기능**
+bg1, bg2, bg3 이미지가 순환 재생
 
----
+페이드 애니메이션으로 자연스럽게 전환
 
-## 📱 PWA 기능 (모바일 설치 가능)
+✅ 3. 카운트다운 UI
 
-### ✔ manifest.json 구성
+행사일까지 남은 시간을 실시간 계산하여 표시
 
-* 앱 이름, 아이콘, PWA 테마 컬러 정의
-* 홈화면 설치 지원
+📱 PWA 기능 (설치 가능한 웹앱)
 
-### ✔ sw.js 서비스워커
+✔ manifest.json
 
-* 캐시 대상 파일 목록 관리
-* 오프라인에서도 **페이지 로딩 가능**
-* install / activate / fetch 이벤트 적용
+앱 이름, 아이콘, 테마 컬러 포함
 
-### ✔ 설치 가능한 웹앱
+홈 화면 설치 지원
 
-* Android Chrome 기준: **"홈 화면에 추가"** 버튼 활성화
-* 데스크톱 Chrome: 주소창 우측 설치 아이콘 표시
+✔ sw.js 서비스워커
 
----
+정적 리소스 캐싱
 
-## 🛠 기술 스택
+오프라인 환경에서도 동작
 
-| 기술             | 설명                   |
-| -------------- | -------------------- |
-| HTML5          | 앱 구조 및 콘텐츠           |
-| CSS3           | 애니메이션, 레이아웃, 반응형 디자인 |
-| JavaScript     | 카운트다운, 배경전환, PWA 로직  |
-| Service Worker | 오프라인 캐싱, 설치 지원       |
-| Web Manifest   | PWA 설정               |
+install / activate / fetch 이벤트 구성
 
----
+✔ 실제 설치 기능
 
-## 📦 PWA 동작 파일 설명
+Android Chrome: “홈 화면에 추가”
 
-### 🔹 **manifest.json**
+PC Chrome: 주소창 설치 아이콘 표시
 
-```
+🛠 기술 스택
+
+기술
+
+설명
+
+HTML5
+
+페이지 구조
+
+CSS3
+
+배경 전환, 반응형, 애니메이션
+
+JavaScript
+
+카운트다운/전환/PWA
+
+Service Worker
+
+캐싱 및 오프라인 처리
+
+Web Manifest
+
+PWA 구성
+
+📦 핵심 파일 설명
+
+🔹 manifest.json
+
 {
   "name": "AI EXPO KOREA 2026",
   "short_name": "AIEXPO",
@@ -96,58 +136,50 @@ AI-EXPO-2026/
     { "src": "icon-512.png", "sizes": "512x512", "type": "image/png" }
   ]
 }
-```
 
-### 🔹 **sw.js (서비스워커)**
+🔹 sw.js 구조
 
-* 정적 파일 캐싱
-* 네트워크 요청 실패 시 캐시에서 제공
-* 오프라인 환경 대응
-
-대략 구조:
-
-```
 self.addEventListener('install', ...)
 self.addEventListener('activate', ...)
 self.addEventListener('fetch', ...)
-```
 
----
+🚀 로컬 실행 방법
 
-## 🚀 로컬 실행 방법
+방법 1 — 파일 직접 실행
 
-```
-브라우저로 index.html 실행
-```
+index.html을 브라우저로 열기만 하면 됩니다.
 
-혹은 VSCODE Live Server 사용
+방법 2 — VSCode Live Server
 
----
+Right click → Open with Live Server
 
-## 🌐 GitHub Pages 배포 방법
+🌐 GitHub Pages 배포
 
-1. 레포 생성 → 파일 업로드
-2. Settings → Pages 이동
-3. Branch: `main` / Folder: `/root` 선택
-4. 저장 → 자동 배포
+Repository 생성 후 파일 업로드
 
-배포 후 PWA 기능 정상 동작
+Settings → Pages 이동
 
----
+Branch: main / Folder: /root
 
-## 🧩 개선 및 확장 아이디어
+저장
 
-* 영어/한국어 다국어 지원
-* 일정표 / 부스 안내 추가
-* 참가 기업 리스트
-* AI 세션 소개 페이지
-* 스폰서 로고 슬라이드 추가
-* 모바일 최적화 인터랙션 추가
+자동 배포됨 → URL 접속하면 PWA 정상 작동
 
----
+🧩 확장 아이디어
 
-## 📄 요약
+다국어(영·한) 지원
 
-AI EXPO 2026 웹앱은 행사를 효과적으로 홍보하고, 모바일에서도 앱처럼 설치해서 사용할 수 있는 **완전한 PWA 랜딩 페이지**입니다.
+행사 일정표 / 프로그램 세션 추가
 
+참가 기업 리스트 & 부스 안내
+
+스폰서 로고 슬라이드
+
+인터랙티브 지도
+
+모바일 UI 강화 애니메이션
+
+📄 요약
+
+AI EXPO KOREA 2026 웹앱은 행사 홍보를 위한 완전한 PWA 기반 랜딩 페이지로,모바일 설치, 오프라인 접근, 반응형 디자인까지 구현된 실전형 프로젝트입니다.
 
