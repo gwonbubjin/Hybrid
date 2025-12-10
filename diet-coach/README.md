@@ -140,9 +140,10 @@ MIT License
 
 ## 👨‍💻 개발자
 
-- GitHub: [@권법진진](https://github.com/gwonbubjin)
+- GitHub: [@권법진](https://github.com/gwonbubjin)
 
 ---
 
 ⭐ 이 프로젝트가 도움이 되었다면 Star를 눌러주세요!
+
 
