@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Modal Test</title>
+    <style>
+        .hidden {
+            display: none !important;
+            visibility: hidden !important;
+            pointer-events: none !important;
+        }
+
+        #date-modal {
+            background: rgba(0, 0, 0, 0.85);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 99999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            max-width: 400px;
+        }
+
+        button {
+            padding: 10px 20px;
+            margin: 10px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Modal Test</h1>
+    <button onclick="showModal()">Show Modal</button>
+
+    <div id="date-modal" class="hidden">
+        <div class="modal-content">
+            <h2>Modal Title</h2>
+            <p>This is the modal content</p>
+            <button onclick="hideModal()">Close</button>
+        </div>
+    </div>
+
+    <script>
+        function showModal() {
+            console.log('Showing modal...');
+            const modal = document.getElementById('date-modal');
+            console.log('Modal element:', modal);
+            console.log('Has hidden class:', modal.classList.contains('hidden'));
+            modal.classList.remove('hidden');
+            console.log('After remove - Has hidden class:', modal.classList.contains('hidden'));
+        }
+
+        function hideModal() {
+            console.log('Hiding modal...');
+            document.getElementById('date-modal').classList.add('hidden');
+        }
+    </script>
+</body>
+
+</html>

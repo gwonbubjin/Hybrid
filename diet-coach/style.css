@@ -1,0 +1,947 @@
+/* =========================================
+   1. THEME VARIABLES (True Black & Vivid Orange)
+   ========================================= */
+:root {
+    /* Brand Colors */
+    --primary: #FF6D00;
+    /* 비비드 오렌지 (강렬한 포인트) */
+    --primary-light: #FF9E40;
+    /* 밝은 오렌지 (그라데이션용) */
+    --accent: #00E676;
+    /* 네온 그린 (성공/단백질) */
+    --danger: #FF3D00;
+    /* 강렬한 레드 (에러) */
+
+    /* Backgrounds (Dark Mode) */
+    --bg-main: #000000;
+    /* True Black (배경) */
+    --bg-card: #121212;
+    /* 깊은 다크 그레이 (카드) */
+    --bg-input: #1E1E1E;
+    /* 입력창 배경 */
+    --bg-overlay: rgba(0, 0, 0, 0.85);
+
+    /* Text Colors (High Contrast) */
+    --text-main: #FFFFFF;
+    /* 완전 흰색 */
+    --text-sub: #B0B0B0;
+    /* 밝은 회색 */
+    --text-placeholder: #6E6E6E;
+
+    /* Macro Colors */
+    --carb-color: #448AFF;
+    /* 밝은 블루 */
+    --prot-color: var(--accent);
+    --fat-color: #FFC107;
+    /* 밝은 옐로우 */
+
+    /* Dimensions */
+    --nav-height: 70px;
+    --card-radius: 20px;
+    --input-radius: 14px;
+    --btn-height: 56px;
+    /* 최적의 터치 높이 */
+
+    /* Safe Area */
+    --safe-top: env(safe-area-inset-top);
+    --safe-bottom: env(safe-area-inset-bottom);
+}
+
+/* =========================================
+   2. RESET & BASE STYLES
+   ========================================= */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+    /* 앱처럼 텍스트 선택 방지 */
+}
+
+body {
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    font-size: 16px;
+    line-height: 1.5;
+    padding-top: var(--safe-top);
+    padding-bottom: var(--safe-bottom);
+}
+
+/* 스크롤바 숨김 (네이티브 앱 느낌) */
+::-webkit-scrollbar {
+    display: none;
+}
+
+/* =========================================
+   3. LAYOUT & STRUCTURE
+   ========================================= */
+#app-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    position: relative;
+}
+
+.screen {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 20px;
+    padding-bottom: calc(var(--nav-height) + 30px);
+    /* 하단 네비게이션 공간 확보 */
+    display: none;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.screen.active {
+    display: flex;
+    animation: fadeUp 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* =========================================
+   4. CARDS & CONTAINERS
+   ========================================= */
+.card {
+    background: var(--bg-card);
+    border-radius: var(--card-radius);
+    padding: 24px;
+    /* 다크모드에서는 그림자 대신 미세한 테두리로 깊이감 표현 */
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    width: 100%;
+}
+
+.card h3 {
+    font-size: 20px;
+    font-weight: 800;
+    margin-bottom: 20px;
+    color: var(--text-main);
+    letter-spacing: -0.5px;
+}
+
+/* =========================================
+   5. INPUTS & BUTTONS (가독성/터치감 최우선)
+   ========================================= */
+.input-group {
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.row {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.half {
+    flex: 1;
+}
+
+/* 입력창 스타일 */
+input,
+select,
+textarea {
+    width: 100%;
+    height: var(--btn-height);
+    /* 터치하기 편한 높이 */
+    padding: 0 20px;
+    background: var(--bg-input);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: var(--input-radius);
+    font-size: 16px;
+    color: var(--text-main);
+    font-weight: 500;
+    transition: all 0.2s ease;
+    appearance: none;
+    -webkit-appearance: none;
+}
+
+/* 이메일 입력창 파란색 */
+input[type="email"] {
+    color: #0EA5E9 !important;
+    /* 밝은 파란색 (Sky Blue) */
+    font-weight: 600;
+}
+
+input::placeholder,
+textarea::placeholder {
+    color: var(--text-placeholder);
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    outline: none;
+    border-color: var(--primary);
+    /* 포커스 시 오렌지 테두리 */
+    background: #252525;
+}
+
+textarea {
+    height: auto;
+    min-height: 130px;
+    padding: 20px;
+    resize: none;
+}
+
+/* 셀렉트 박스 화살표 (흰색) */
+select {
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 16px center;
+    background-size: 18px;
+}
+
+/* 버튼 공통 스타일 */
+button {
+    width: 100%;
+    height: var(--btn-height);
+    border: none;
+    border-radius: var(--input-radius);
+    font-size: 16px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: transform 0.1s, opacity 0.2s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    white-space: nowrap;
+    /* 글자 줄바꿈 방지 */
+    flex-shrink: 0;
+    /* 찌그러짐 방지 */
+}
+
+/* Row 내 버튼 스타일 조정 */
+.row button {
+    flex: 1;
+    min-width: 0;
+    /* Flexbox overflow fix */
+    padding: 0 10px;
+}
+
+button:active {
+    transform: scale(0.98);
+    opacity: 0.9;
+}
+
+/* 메인 오렌지 버튼 */
+.btn-primary {
+    background: linear-gradient(135deg, var(--primary), var(--primary-light));
+    color: white;
+    /* 오렌지색 빛 번짐 효과 */
+    box-shadow: 0 8px 20px -5px rgba(255, 109, 0, 0.5);
+}
+
+/* 보조 버튼 */
+.btn-secondary {
+    background: var(--bg-input);
+    color: var(--primary);
+    border: 1px solid var(--primary);
+}
+
+/* 위험/로그아웃 버튼 */
+.btn-danger {
+    background: rgba(255, 61, 0, 0.15);
+    color: var(--danger);
+}
+
+/* AI 분석 버튼 */
+.btn-action {
+    background: white;
+    color: black;
+    font-weight: 900;
+    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
+}
+
+/* =========================================
+   6. DATA VISUALIZATION (Charts & Bars)
+   ========================================= */
+/* 도넛 차트 컨테이너 */
+.chart-container-doughnut {
+    position: relative;
+    width: 240px;
+    height: 240px;
+    margin: 20px auto 40px auto;
+}
+
+.chart-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.chart-val {
+    font-size: 42px;
+    font-weight: 900;
+    color: var(--text-main);
+    line-height: 1.1;
+}
+
+.chart-label {
+    font-size: 14px;
+    color: var(--text-sub);
+    margin-top: 8px;
+}
+
+/* 영양소 진행바 */
+.macro-row {
+    margin-bottom: 18px;
+}
+
+.macro-header {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    margin-bottom: 10px;
+    color: var(--text-sub);
+    font-weight: 600;
+}
+
+.progress-bg {
+    width: 100%;
+    height: 10px;
+    background: var(--bg-input);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    border-radius: 10px;
+    transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 진행바 컬러 매핑 */
+.bg-carb {
+    background: var(--carb-color);
+    box-shadow: 0 0 10px rgba(68, 138, 255, 0.4);
+}
+
+.bg-prot {
+    background: var(--prot-color);
+    box-shadow: 0 0 10px rgba(0, 230, 118, 0.4);
+}
+
+.bg-fat {
+    background: var(--fat-color);
+    box-shadow: 0 0 10px rgba(255, 193, 7, 0.4);
+}
+
+/* =========================================
+   7. NAVIGATION & HEADERS
+   ========================================= */
+/* 상단 헤더 */
+.app-header {
+    height: 60px;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--text-main);
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* 하단 네비게이션 */
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: var(--nav-height);
+    background: rgba(18, 18, 18, 0.9);
+    /* 반투명 다크 배경 */
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    display: flex;
+    justify-content: space-around;
+    padding-bottom: var(--safe-bottom);
+    z-index: 100;
+}
+
+.nav-item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    color: #666;
+    /* 비활성 상태: 어두운 회색 */
+    gap: 6px;
+    height: 100%;
+    padding-bottom: 4px;
+}
+
+.nav-item i {
+    font-size: 24px;
+    transition: all 0.2s ease;
+}
+
+.nav-item span {
+    font-size: 11px;
+    font-weight: 700;
+}
+
+/* 활성 네비게이션 아이템 (오렌지) */
+.nav-item.active {
+    color: var(--primary);
+}
+
+.nav-item.active i {
+    transform: translateY(-2px);
+    /* 오렌지색 네온 효과 */
+    filter: drop-shadow(0 0 8px rgba(255, 109, 0, 0.6));
+}
+
+/* =========================================
+   8. UTILITIES & ALERTS
+   ========================================= */
+.hidden {
+    display: none !important;
+}
+
+/* 로그인 화면 */
+.entry-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: var(--bg-main);
+    z-index: 2000;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.brand-title {
+    font-size: 40px;
+    font-weight: 900;
+    color: var(--primary);
+    margin-bottom: 12px;
+    text-shadow: 0 0 20px rgba(255, 109, 0, 0.3);
+}
+
+.brand-subtitle {
+    font-size: 16px;
+    color: var(--text-sub);
+    margin-bottom: 60px;
+}
+
+/* 토스트 알림 */
+#toast-container {
+    position: fixed;
+    top: 60px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 3000;
+    width: 90%;
+    max-width: 380px;
+    pointer-events: none;
+}
+
+.toast {
+    background: rgba(30, 30, 30, 0.95);
+    color: white;
+    padding: 16px 20px;
+    border-radius: 16px;
+    margin-bottom: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    font-size: 15px;
+    font-weight: 700;
+    text-align: center;
+    backdrop-filter: blur(10px);
+    animation: slideDown 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.toast.success {
+    border-left: 4px solid var(--accent);
+    color: var(--accent);
+}
+
+.toast.error {
+    border-left: 4px solid var(--danger);
+    color: var(--danger);
+}
+
+/* 로딩 스피너 */
+#loading-overlay {
+    position: fixed;
+    inset: 0;
+    background: var(--bg-overlay);
+    backdrop-filter: blur(8px);
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.spinner {
+    width: 56px;
+    height: 56px;
+    border: 4px solid rgba(255, 109, 0, 0.2);
+    border-top-color: var(--primary);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+/* 애니메이션 */
+@keyframes spin {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideDown {
+    from {
+        transform: translateY(-30px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* =========================================
+   9. JS 주입 요소 스타일
+   ========================================= */
+#analysis-result h4 {
+    font-size: 22px;
+    color: var(--primary);
+    margin-bottom: 16px;
+    font-weight: 800;
+}
+
+.nutrients-info {
+    display: flex;
+    justify-content: space-around;
+    background: var(--bg-input);
+    padding: 20px;
+    border-radius: 16px;
+    margin: 20px 0;
+    font-size: 15px;
+    font-weight: 700;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+#img-preview {
+    border-radius: 16px;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+/* =========================================
+   10. FULLCALENDAR OVERRIDES (Dark Mode)
+   ========================================= */
+.fc {
+    background: var(--bg-card);
+    border-radius: 20px;
+    padding: 10px;
+    border: none;
+    /* Remove border */
+}
+
+.fc-theme-standard td,
+.fc-theme-standard th {
+    border-color: rgba(255, 255, 255, 0.05);
+    /* Very subtle borders */
+}
+
+/* Header Text Visibility Fix - BLACK TEXT */
+.fc-col-header-cell-cushion {
+    color: #000000 !important;
+    /* Force Black Text */
+    opacity: 1 !important;
+    text-decoration: none !important;
+    font-weight: 800;
+}
+
+/* White background for header to ensure black text is visible */
+.fc-col-header-cell {
+    background-color: #FFFFFF !important;
+}
+
+/* Ensure header row background is not white */
+.fc-theme-standard .fc-scrollgrid {
+    border: none;
+    background-color: var(--bg-card);
+    /* Dark Background */
+}
+
+/* Add Pointer Cursor for Interaction Cue */
+.fc-daygrid-day-frame {
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.fc-daygrid-day-frame:active {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+/* Day Numbers */
+.fc-daygrid-day-top {
+    justify-content: center;
+    /* Center the dot/number */
+    padding-top: 4px;
+}
+
+.fc-daygrid-day-number {
+    color: var(--text-sub);
+    font-size: 12px;
+    text-decoration: none !important;
+}
+
+/* Hide Today Highlight if desired */
+.fc-day-today {
+    background: rgba(255, 109, 0, 0.05) !important;
+}
+
+/* Modal Overlay - CRITICAL: Must be visible when not hidden */
+#date-modal {
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(8px);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 99999;
+    /* Maximum z-index */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+
+
+.modal-content {
+    background: #1A1A1A;
+    width: 100%;
+    max-width: 320px;
+    border-radius: 24px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    overflow: hidden;
+    animation: fadeUp 0.3s cubic-bezier(0.3, 1.5, 0.5, 1);
+}
+
+.modal-header {
+    background: linear-gradient(135deg, var(--primary), var(--primary-light));
+    padding: 20px;
+    color: white;
+    font-weight: 800;
+    font-size: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-body {
+    padding: 20px;
+    max-height: 50vh;
+    overflow-y: auto;
+}
+
+.modal-log-item {
+    background: #252525;
+    padding: 14px;
+    border-radius: 12px;
+    margin-bottom: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.modal-log-name {
+    font-weight: 700;
+    font-size: 16px;
+    color: white;
+    margin-bottom: 4px;
+}
+
+.modal-log-cal {
+    font-size: 14px;
+    color: var(--primary);
+    font-weight: 600;
+}
+
+
+.btn-close-modal {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    color: white;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+@keyframes slideDown {
+    from {
+        transform: translateY(-30px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* =========================================
+   9. JS 주입 요소 스타일
+   ========================================= */
+#analysis-result h4 {
+    font-size: 22px;
+    color: var(--primary);
+    margin-bottom: 16px;
+    font-weight: 800;
+}
+
+.nutrients-info {
+    display: flex;
+    justify-content: space-around;
+    background: var(--bg-input);
+    padding: 20px;
+    border-radius: 16px;
+    margin: 20px 0;
+    font-size: 15px;
+    font-weight: 700;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+#img-preview {
+    border-radius: 16px;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+/* =========================================
+   10. FULLCALENDAR OVERRIDES (Dark Mode)
+   ========================================= */
+.fc {
+    background: var(--bg-card);
+    border-radius: 20px;
+    padding: 10px;
+    border: none;
+    /* Remove border */
+}
+
+.fc-theme-standard td,
+.fc-theme-standard th {
+    border-color: rgba(255, 255, 255, 0.05);
+    /* Very subtle borders */
+}
+
+/* Header Text Visibility Fix - BLACK TEXT */
+.fc-col-header-cell-cushion {
+    color: #000000 !important;
+    /* Force Black Text */
+    opacity: 1 !important;
+    text-decoration: none !important;
+    font-weight: 800;
+}
+
+/* White background for header to ensure black text is visible */
+.fc-col-header-cell {
+    background-color: #FFFFFF !important;
+}
+
+/* Ensure header row background is not white */
+.fc-theme-standard .fc-scrollgrid {
+    border: none;
+    background-color: var(--bg-card);
+    /* Dark Background */
+}
+
+/* Add Pointer Cursor for Interaction Cue */
+.fc-daygrid-day-frame {
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.fc-daygrid-day-frame:active {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+/* Day Numbers */
+.fc-daygrid-day-top {
+    justify-content: center;
+    /* Center the dot/number */
+    padding-top: 4px;
+}
+
+.fc-daygrid-day-number {
+    color: var(--text-sub);
+    font-size: 12px;
+    text-decoration: none !important;
+}
+
+/* Hide Today Highlight if desired */
+.fc-day-today {
+    background: rgba(255, 109, 0, 0.05) !important;
+}
+
+/* Modal Overlay - CRITICAL: Must be visible when not hidden */
+#date-modal {
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(8px);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 99999;
+    /* Maximum z-index */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+
+
+.modal-content {
+    background: #1A1A1A;
+    width: 100%;
+    max-width: 320px;
+    border-radius: 24px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    overflow: hidden;
+    animation: fadeUp 0.3s cubic-bezier(0.3, 1.5, 0.5, 1);
+}
+
+.modal-header {
+    background: linear-gradient(135deg, var(--primary), var(--primary-light));
+    padding: 20px;
+    color: white;
+    font-weight: 800;
+    font-size: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-body {
+    padding: 20px;
+    max-height: 50vh;
+    overflow-y: auto;
+}
+
+.modal-log-item {
+    background: #252525;
+    padding: 14px;
+    border-radius: 12px;
+    margin-bottom: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.modal-log-name {
+    font-weight: 700;
+    font-size: 16px;
+    color: white;
+    margin-bottom: 4px;
+}
+
+.modal-log-cal {
+    font-size: 14px;
+    color: var(--primary);
+    font-weight: 600;
+}
+
+.btn-close-modal {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    color: white;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+/* Hidden class for modal visibility control */
+.hidden {
+    display: none !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+}
+
+/* ==========================================
+   WATER TRACKER
+   ========================================== */
+.water-cup {
+    aspect-ratio: 1;
+    border: 3px solid var(--primary);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.water-cup::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 0%;
+    background: linear-gradient(180deg, #60A5FA 0%, #3B82F6 100%);
+    transition: height 0.4s ease;
+}
+
+.water-cup.filled::before {
+    height: 100%;
+}
+
+.water-cup:hover {
+    transform: scale(1.1);
+    border-color: #60A5FA;
+    box-shadow: 0 0 15px rgba(96, 165, 250, 0.5);
+}
+
+.water-cup.filled {
+    border-color: #3B82F6;
+}

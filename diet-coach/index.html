@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>AI Diet Coach Pro</title>
+
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#4F46E5">
+    <link rel="apple-touch-icon" href="https://via.placeholder.com/192.png?text=Icon">
+
+    <link rel="stylesheet" href="style.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+
+    <div id="loading-overlay" class="hidden">
+        <div class="spinner"></div>
+    </div>
+    <div id="toast-container"></div>
+
+    <section id="entry-screen" class="entry-container active">
+        <div class="fade-up">
+            <h1 class="brand-title">Diet Coach AI</h1>
+            <p class="brand-subtitle">당신만을 위한 퍼스널 영양 코치</p>
+
+            <div id="login-form">
+                <div class="input-group">
+                    <input type="email" id="email" placeholder="이메일 주소" autocomplete="email">
+                </div>
+                <div class="input-group">
+                    <input type="password" id="password" placeholder="비밀번호" autocomplete="current-password">
+                </div>
+
+                <div style="display: flex; align-items: center; margin-bottom: 20px; gap: 12px; cursor: pointer;"
+                    onclick="document.getElementById('auto-login').click();">
+                    <div
+                        style="position: relative; width: 24px; height: 24px; border: 2px solid var(--primary); border-radius: 6px; background: var(--bg-card); display: flex; align-items: center; justify-content: center; transition: all 0.2s;">
+                        <input type="checkbox" id="auto-login"
+                            style="position: absolute; opacity: 0; width: 0; height: 0;">
+                        <i class="fas fa-check" id="check-icon"
+                            style="color: var(--primary); font-size: 16px; display: none;"></i>
+                    </div>
+                    <label for="auto-login"
+                        style="color: var(--text-main); font-size: 15px; cursor: pointer; user-select: none; font-weight: 500;">
+                        자동 로그인
+                    </label>
+                </div>
+
+                <div class="row" style="gap: 12px;">
+                    <button id="btn-login" class="btn-primary">로그인</button>
+                    <button id="btn-goto-signup" class="btn-secondary">회원가입</button>
+                </div>
+            </div>
+
+            <div id="signup-form" class="hidden">
+                <div class="input-group">
+                    <input type="email" id="s-email" placeholder="이메일" autocomplete="email">
+                </div>
+                <div class="input-group">
+                    <input type="password" id="s-password" placeholder="비밀번호 (6자 이상)" autocomplete="new-password">
+                </div>
+
+                <div class="row">
+                    <select id="s-gender" class="half">
+                        <option value="male">남성</option>
+                        <option value="female">여성</option>
+                    </select>
+                    <input type="number" id="s-age" placeholder="나이" class="half">
+                </div>
+                <div class="row">
+                    <input type="number" id="s-height" placeholder="키 (cm)" class="half">
+                    <input type="number" id="s-weight" placeholder="체중 (kg)" class="half">
+                </div>
+                <div class="input-group">
+                    <select id="s-activity">
+                        <option value="1.2">활동 적음 (사무직/학생)</option>
+                        <option value="1.375">가벼운 활동 (주 1~3회)</option>
+                        <option value="1.55">보통 활동 (주 3~5회)</option>
+                        <option value="1.725">많은 활동 (주 6~7회)</option>
+                        <option value="1.9">매우 많음 (선수급)</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <select id="s-goal">
+                        <option value="lose">다이어트 (감량)</option>
+                        <option value="maintain">현재 유지</option>
+                        <option value="gain">근육 증량 (벌크업)</option>
+                    </select>
+                </div>
+
+                <button id="btn-signup" class="btn-primary">가입하고 시작하기</button>
+                <button id="btn-goto-login" class="btn-secondary">이미 계정이 있으신가요? 로그인</button>
+            </div>
+        </div>
+    </section>
+
+    <div id="app-container" class="hidden">
+
+        <header class="app-header">
+            <span id="header-title">오늘의 요약</span>
+        </header>
+
+        <div id="tab-home" class="screen active">
+
+            <div class="card fade-up">
+                <h3>오늘의 섭취량</h3>
+                <div class="chart-container-doughnut">
+                    <canvas id="chart-doughnut"></canvas>
+                    <div class="chart-center">
+                        <div class="chart-label">남은 칼로리</div>
+                        <div class="chart-val" id="val-remain">0</div>
+                        <div class="chart-label" style="font-size:11px;">kcal</div>
+                    </div>
+                </div>
+
+                <div class="macro-row">
+                    <div class="macro-header"><span>탄수화물</span><span id="label-carb">0/0g</span></div>
+                    <div class="progress-bg">
+                        <div id="bar-carb" class="progress-fill bg-carb" style="width:0%"></div>
+                    </div>
+                </div>
+                <div class="macro-row">
+                    <div class="macro-header"><span>단백질</span><span id="label-prot">0/0g</span></div>
+                    <div class="progress-bg">
+                        <div id="bar-prot" class="progress-fill bg-prot" style="width:0%"></div>
+                    </div>
+                </div>
+                <div class="macro-row">
+                    <div class="macro-header"><span>지방</span><span id="label-fat">0/0g</span></div>
+                    <div class="progress-bg">
+                        <div id="bar-fat" class="progress-fill bg-fat" style="width:0%"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card fade-up" style="animation-delay: 0.1s;">
+                <h3>식단 기록하기 🥗</h3>
+                <div class="input-group" style="margin-top:10px;">
+                    <textarea id="ai-prompt"
+                        placeholder="먹은 음식을 자세히 적거나 사진을 찍어주세요.&#10;예: 닭가슴살 샐러드랑 아메리카노 한 잔"></textarea>
+                </div>
+                <input type="file" id="ai-image" accept="image/*" hidden>
+
+                <div id="preview-area" class="hidden" style="margin-bottom:10px; position:relative;">
+                    <img id="img-preview" style="width:100%; border-radius:12px; max-height:200px; object-fit:cover;">
+                    <button id="btn-remove-img" class="btn-danger"
+                        style="position:absolute; top:8px; right:8px; width:32px; height:32px; padding:0; border-radius:50%; min-width:auto;">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+
+                <div class="row">
+                    <button id="btn-camera" class="btn-secondary" style="background:#F3F4F6;">
+                        <i class="fas fa-camera"></i> 사진
+                    </button>
+                    <button id="btn-analyze" class="btn-action" style="flex:2;">
+                        AI 분석 시작 <i class="fas fa-magic"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div id="result-card" class="card hidden fade-up">
+            </div>
+
+            <div class="card fade-up" style="animation-delay: 0.2s;">
+                <h3>최근 기록</h3>
+                <ul id="list-recent" style="list-style:none; margin-top:10px;"></ul>
+            </div>
+
+            <div class="card fade-up" style="animation-delay: 0.3s;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                    <h3>💧 물 섭취량</h3>
+                    <span id="water-count" style="font-size: 20px; font-weight: bold; color: var(--primary);">0 /
+                        8</span>
+                </div>
+                <div style="display: grid; grid-template-columns: repeat(8, 1fr); gap: 8px; margin-bottom: 15px;">
+                    <div class="water-cup" data-index="0"></div>
+                    <div class="water-cup" data-index="1"></div>
+                    <div class="water-cup" data-index="2"></div>
+                    <div class="water-cup" data-index="3"></div>
+                    <div class="water-cup" data-index="4"></div>
+                    <div class="water-cup" data-index="5"></div>
+                    <div class="water-cup" data-index="6"></div>
+                    <div class="water-cup" data-index="7"></div>
+                </div>
+                <button id="btn-reset-water" class="btn-secondary" style="width: 100%;">초기화</button>
+            </div>
+        </div>
+
+        <div id="tab-history" class="screen">
+            <div class="card">
+                <div id="calendar"></div>
+            </div>
+            <div id="day-detail" class="card hidden">
+                <h3 id="day-detail-date"></h3>
+                <ul id="day-detail-list" style="list-style:none; margin-top:10px; padding-left:0;"></ul>
+            </div>
+        </div>
+
+        <div id="tab-stats" class="screen">
+            <div class="card">
+                <h3>🎯 오늘의 영양 밸런스</h3>
+                <div style="height:300px; margin-top:20px;">
+                    <canvas id="chart-radar"></canvas>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>📊 칼로리 추이 (7일)</h3>
+                <div style="height:280px; margin-top:20px;">
+                    <canvas id="chart-calorie"></canvas>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>⚖️ 체중 변화</h3>
+                <div style="height:280px; margin-top:20px;">
+                    <canvas id="chart-weight"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div id="tab-profile" class="screen">
+            <div class="card">
+                <div class="input-group">
+                    <label style="font-size:12px; color:#666;">이메일</label>
+                    <input type="text" id="p-email" disabled style="background:#EEE; color:#0284C7; font-weight:bold;">
+                </div>
+                <div class="row">
+                    <div class="half"><label style="font-size:12px; color:#666;">키 (cm)</label><input type="number"
+                            id="p-height"></div>
+                    <div class="half"><label style="font-size:12px; color:#666;">체중 (kg)</label><input type="number"
+                            id="p-weight"></div>
+                </div>
+                <div class="row">
+                    <div class="half"><label style="font-size:12px; color:#666;">나이</label><input type="number"
+                            id="p-age"></div>
+                    <div class="half">
+                        <label style="font-size:12px; color:#666;">성별</label>
+                        <select id="p-gender">
+                            <option value="male">남성</option>
+                            <option value="female">여성</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label style="font-size:12px; color:#666;">활동량</label>
+                    <select id="p-activity">
+                        <option value="1.2">1.2 (활동 적음)</option>
+                        <option value="1.375">1.375 (가벼운 활동)</option>
+                        <option value="1.55">1.55 (보통 활동)</option>
+                        <option value="1.725">1.725 (많은 활동)</option>
+                        <option value="1.9">1.9 (매우 많음)</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label style="font-size:12px; color:#666;">목표</label>
+                    <select id="p-goal">
+                        <option value="lose">다이어트</option>
+                        <option value="maintain">유지</option>
+                        <option value="gain">증량</option>
+                    </select>
+                </div>
+                <div class="input-group"
+                    style="background:#F0F9FF; padding:10px; border-radius:12px; border:1px solid #BAE6FD;">
+                    <label style="font-size:12px; color:#0369A1;">일일 권장 칼로리 (자동계산)</label>
+                    <input type="number" id="p-target" disabled
+                        style="background:transparent; border:none; font-weight:bold; color:#0284C7; font-size:18px; padding:0; height:auto;">
+                </div>
+
+                <div class="row" style="margin-top:20px;">
+                    <button id="btn-save-profile" class="btn-primary">정보 저장</button>
+                    <button id="btn-logout" class="btn-danger" style="flex:0.4;">로그아웃</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="date-modal" class="hidden">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span id="modal-date-title">Date</span>
+                    <button class="btn-close-modal" id="btn-modal-close"><i class="fas fa-times"></i></button>
+                </div>
+                <div class="modal-body" id="modal-log-list">
+                </div>
+            </div>
+        </div>
+
+        <nav class="bottom-nav">
+            <button class="nav-item active" data-target="tab-home">
+                <i class="fas fa-home"></i> <span>홈</span>
+            </button>
+            <button class="nav-item" data-target="tab-history">
+                <i class="fas fa-calendar-alt"></i> <span>기록</span>
+            </button>
+            <button class="nav-item" data-target="tab-stats">
+                <i class="fas fa-chart-line"></i> <span>통계</span>
+            </button>
+            <button class="nav-item" data-target="tab-profile">
+                <i class="fas fa-user-circle"></i> <span>마이</span>
+            </button>
+        </nav>
+
+    </div>
+
+    <script type="module" src="/app.js"></script>
+
+</body>
+
+</html>
